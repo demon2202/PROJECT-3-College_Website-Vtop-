@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Faculty Activities Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f2f5;
+            line-height: 1.6;
+            color: #333;
+        }
+                /* Sidebar Styles */
+                .sidebar {
+                    background-color: #1e467f;
+                    color: #fff;
+                    width: 80px;
+                    padding-top: 20px;
+                    position: fixed;
+                    height: 100%;
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                    transition: width 0.3s ease;
+                    z-index: 1000;
+                    overflow: hidden;
+                }
+        
+                .sidebar:hover {
+                    width: 260px;
+                }
+        
+                .sidebar-logo {
+                    display: flex;
+                    align-items: center;
+                    padding: 20px 15px;
+                    margin-bottom: 20px;
+                }
+        
+                .sidebar-logo img {
+                    width: 50px;
+                    height: 50px;
+                    margin-right: 15px;
+                }
+        
+                .sidebar-logo h2 {
+                    font-size: 1.2rem;
+                    display: none;
+                    color: #fff;
+                }
+        
+                .sidebar:hover .sidebar-logo h2 {
+                    display: block;
+                }
+        
+                .sidebar-nav {
+                    list-style: none;
+                }
+        
+                .sidebar-nav li {
+                    margin: 15px 0;
+                }
+        
+                .sidebar-nav li a {
+                    display: flex;
+                    align-items: center;
+                    color: #fff;
+                    text-decoration: none;
+                    padding: 12px 20px;
+                    transition: all 0.3s ease;
+                    position: relative;
+                }
+        
+                .sidebar-nav li a:hover {
+                    background-color: rgba(255, 255, 255, 0.1);
+                }
+        
+                .sidebar-nav li a i {
+                    font-size: 1.2rem;
+                    margin-right: 15px;
+                    width: 30px;
+                    text-align: center;
+                }
+        
+                .sidebar-nav li a span {
+                    display: none;
+                    white-space: nowrap;
+                }
+        
+                .sidebar:hover .sidebar-nav li a span {
+                    display: inline;
+                }
+        .dashboard-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px 20px;
+        }
+        .dashboard-header h2 {
+            margin: 0;
+            font-size: 1.4em;
+        }
+        .actions-bar {
+            display: flex;
+            gap: 10px;
+        }
+        .btn {
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-size: 0.9em;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .activity-card {
+            background-color: white;
+            border-radius: 8px;
+            border: 1px solid #e0e4e8;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .activity-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .activity-icon {
+            width: 50px;
+            height: 50px;
+            background-color: #3498db;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            align-self: flex-start;
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+        .activity-content {
+            flex-grow: 1;
+        }
+        .activity-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        .activity-description {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+        .activity-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8em;
+            color: #7f8c8d;
+        }
+        .activity-status {
+            font-weight: bold;
+        }
+        .status-pending {
+            color: #f39c12;
+        }
+        .status-completed {
+            color: #2ecc71;
+        }
+        .status-urgent {
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <img src="vit.png" alt="VIT Logo">
+                <h2>Faculty Portal</h2>
+            </div>
+            <ul class="sidebar-nav">
+                <li>
+                    <a href="thome.html">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="course.html">
+                        <i class="fas fa-book"></i>
+                        <span>My Courses</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="P.HTML">
+                        <i class="fas fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="attendance.html">
+                        <i class="fas fa-clipboard-list"></i>
+                        <span>Attendance</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="n.html">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <span>Events</span>
+                    </a>
+                </li>
+                <li>
+                
+                    <a href="research.html">
+                        <i class="fas fa-flask"></i>
+                        <span>Research Hub</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="LOGIN PAGE.html">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h2>Recent Faculty Activities</h2>
+            <div class="actions-bar">
+                <a href="#" class="btn">View All</a>
+                <a href="#" class="btn">Quick Actions</a>
+            </div>
+        </div>
+        
+        <div class="activities-grid">
+            <div class="activity-card">
+                <div class="activity-icon">📊</div>
+                <div class="activity-content">
+                    <div class="activity-title">Research Paper Submission</div>
+                    <div class="activity-description">Submitted research paper to International Journal of Computer Science</div>
+                    <div class="activity-meta">
+                        <span>2 hours ago</span>
+                        <span class="activity-status status-completed">Completed</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="activity-card">
+                <div class="activity-icon">📋</div>
+                <div class="activity-content">
+                    <div class="activity-title">Course Syllabus Update</div>
+                    <div class="activity-description">Pending review for CS3401 course syllabus revision</div>
+                    <div class="activity-meta">
+                        <span>Yesterday</span>
+                        <span class="activity-status status-pending">Pending</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="activity-card">
+                <div class="activity-icon">🚨</div>
+                <div class="activity-content">
+                    <div class="activity-title">Exam Grading Deadline</div>
+                    <div class="activity-description">Urgent: Final grades submission for Spring Semester</div>
+                    <div class="activity-meta">
+                        <span>Next Week</span>
+                        <span class="activity-status status-urgent">Urgent</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="activity-card">
+                <div class="activity-icon">📅</div>
+                <div class="activity-content">
+                    <div class="activity-title">Department Meeting</div>
+                    <div class="activity-description">Quarterly department strategy and planning meeting</div>
+                    <div class="activity-meta">
+                        <span>Next Week</span>
+                        <span class="activity-status status-pending">Upcoming</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

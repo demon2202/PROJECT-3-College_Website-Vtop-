@@ -1,0 +1,699 @@
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   College Dashboard
+  </title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js">
+  </script>
+  <style>
+   body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            display: flex;
+        }
+.sidebar {
+    background-color: #1e467f;
+    color: #fff;
+    width: 80px;
+    padding-top: 20px;
+    position: fixed;
+    height: 100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transition: width 0.3s ease;
+    z-index: 1000;
+}
+
+.sidebar:hover {
+    width: 240px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 25px 0;
+}
+
+.sidebar ul li a {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    text-decoration: none;
+    padding: 15px;
+    transition: background-color 0.3s ease, border-radius 0.3s ease;
+    border-radius: 5px;
+}
+
+.sidebar ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.sidebar ul li a i {
+    font-size: 24px;
+    margin-right: 15px;
+    transition: margin 0.3s ease;
+}
+
+.sidebar:hover ul li a span {
+    display: inline-block;
+    font-size: 16px;
+}
+
+.sidebar ul li a span {
+    display: none;
+}
+
+.sidebar:hover ul li a i {
+    margin-right: 15px;
+}
+
+.logo-img {
+    width: 60px;
+    height: 60px;
+    margin-left: 10px;
+    margin-bottom: 15px;
+}
+
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            width: calc(100% - 250px);
+        }
+        .profile-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .profile-section img {
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            margin-right: 20px;
+            position: relative;
+        }
+        .profile-section img::after {
+            content: '';
+            width: 15px;
+            height: 15px;
+            background-color: #2ecc71;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            border: 2px solid #ecf0f1;
+        }
+        .profile-section .info {
+            display: flex;
+            flex-direction: column;
+        }
+        .profile-section .info h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .profile-section .info p {
+            margin: 5px 0 0;
+            color: #7f8c8d;
+        }
+        .semester-controls {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .semester-controls select {
+            padding: 10px;
+            margin-right: 10px;
+        }
+        .semester-controls button {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #ecf0f1;
+            border: none;
+            cursor: pointer;
+        }
+        .gpa-card, .statistics-cards, .grades-table, .performance-chart {
+            margin-bottom: 20px;
+        }
+        .gpa-card {
+            padding: 20px;
+            background-color: #ecf0f1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .gpa-card h3 {
+            margin: 0;
+        }
+        .gpa-card .trend {
+            color: #2ecc71;
+        }
+        .statistics-cards {
+            display: flex;
+            justify-content: space-between;
+        }
+        .statistics-cards .card {
+            background-color: #ecf0f1;
+            padding: 20px;
+            flex: 1;
+            margin-right: 10px;
+            text-align: center;
+        }
+        .statistics-cards .card:last-child {
+            margin-right: 0;
+        }
+        .grades-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .grades-table th, .grades-table td {
+            padding: 10px;
+            border: 1px solid #bdc3c7;
+            text-align: left;
+        }
+        .grades-table th {
+            background-color: #34495e;
+            color: #ecf0f1;
+        }
+        .grades-table button {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #ecf0f1;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .performance-chart {
+            padding: 20px;
+            background-color: #ecf0f1;
+        }
+  </style>
+ </head>
+ <body>
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="logo-container">
+            <img src="vit.png" alt="VIT Logo" class="logo-img">
+        </div>
+        <ul>
+            <li>
+                <a href="home.html">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="profile.html">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                </a>
+            </li>
+            <li>
+                <a href="events.html">
+                    <i class="fa-solid fa-music"></i>
+                    <span>Events</span>
+                </a>
+            </li>
+            <li>
+                <a href="faculty-html.html">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <span>Professors</span>
+                </a>
+            </li>
+            <li>
+                <a href="grades.html">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>Grades</span>
+                </a>
+            </li>
+            <li>
+                <a href="leave.html">
+                    <i class="fa-solid fa-hotel"></i>
+                    <span>Leave Request</span>
+                </a>
+            </li>
+            <li>
+                <a href="LOGIN PAGE.html">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+  <div class="main-content">
+   <div class="profile-section">
+    <img alt="Profile picture of the student with an online status indicator" height="80" src="user_profile.png" width="80"/>
+    <div class="info">
+     <h2>
+      Harshit Singh Negi
+     </h2>
+     <p>
+      Bachelor of Science in Computer Science
+     </p>
+     <p>
+      Vellore Institute of Technology
+     </p>
+    </div>
+   </div>
+   <div class="semester-controls">
+    <select id="semester-select">
+     <option value="1">
+      Semester 1
+     </option>
+     <option value="2">
+      Semester 2
+     </option>
+     <option value="3">
+      Semester 3
+     </option>
+     <option value="4">
+      Semester 4
+     </option>
+    </select>
+    <button onclick="refreshData()">
+     Refresh
+    </button>
+   </div>
+   <div class="gpa-card">
+    <h3 id="cumulative-gpa">
+     Cumulative GPA: 8.65
+    </h3>
+    <span class="trend">
+     <i class="fas fa-arrow-up">
+     </i>
+     Improving
+    </span>
+   </div>
+   <div class="statistics-cards">
+    <div class="card">
+     <h4>
+      Total Credits
+     </h4>
+     <p id="total-credits">
+      21
+     </p>
+    </div>
+    <div class="card">
+     <h4>
+      Class Rank
+     </h4>
+     <p id="class-rank">
+      5/120
+     </p>
+    </div>
+    <div class="card">
+     <h4>
+      Semester Status
+     </h4>
+     <p id="semester-status">
+      Passed
+     </p>
+    </div>
+   </div>
+   <div class="grades-table">
+    <h3>
+     Current Semester Grades
+    </h3>
+    <table id="grades-table">
+     <thead>
+      <tr>
+       <th>
+        Subject
+       </th>
+       <th>
+        Grade
+       </th>
+       <th>
+        Credits
+       </th>
+       <th>
+        Grade Points
+       </th>
+      </tr>
+     </thead>
+     <tbody>
+      <tr>
+       <td>
+        AI &amp; ML
+       </td>
+       <td>
+        A
+       </td>
+       <td>
+        4
+       </td>
+       <td>
+        16
+       </td>
+      </tr>
+      <tr>
+       <td>
+        Tech Comm
+       </td>
+       <td>
+        A
+       </td>
+       <td>
+        3
+       </td>
+       <td>
+        12
+       </td>
+      </tr>
+      <tr>
+       <td>
+        Calculus
+       </td>
+       <td>
+        B
+       </td>
+       <td>
+        4
+       </td>
+       <td>
+        12
+       </td>
+      </tr>
+      <tr>
+       <td>
+        Eng Design
+       </td>
+       <td>
+        A
+       </td>
+       <td>
+        3
+       </td>
+       <td>
+        12
+       </td>
+      </tr>
+      <tr>
+       <td>
+        Physics
+       </td>
+       <td>
+        B
+       </td>
+       <td>
+        3
+       </td>
+       <td>
+        9
+       </td>
+      </tr>
+      <tr>
+       <td>
+        Digital Lit
+       </td>
+       <td>
+        A
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        8
+       </td>
+      </tr>
+      <tr>
+       <td>
+        Human Values
+       </td>
+       <td>
+        A
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        8
+       </td>
+      </tr>
+     </tbody>
+    </table>
+    <button onclick="exportToCSV()">
+     Export to CSV
+    </button>
+   </div>
+   <div class="performance-chart">
+    <h3>
+     Performance Trend
+    </h3>
+    <canvas height="300" id="performance-chart" width="600">
+    </canvas>
+   </div>
+  </div>
+  <script>
+   const semesterData = {
+            1: {
+                subjects: [
+                    { name: "AI & ML", grade: "A", credits: 4 },
+                    { name: "Tech Comm", grade: "A", credits: 3 },
+                    { name: "Calculus", grade: "B", credits: 4 },
+                    { name: "Eng Design", grade: "A", credits: 3 },
+                    { name: "Physics", grade: "B", credits: 3 },
+                    { name: "Digital Lit", grade: "A", credits: 2 },
+                    { name: "Human Values", grade: "A", credits: 2 }
+                ],
+                cgpa: 8.65,
+                totalCredits: 21,
+                classRank: "5/120",
+                semesterStatus: "Passed"
+            },
+            2: {
+                subjects: [
+                    { name: "Chemistry", grade: "A", credits: 3 },
+                    { name: "Programming", grade: "A", credits: 4 },
+                    { name: "Circuits", grade: "A", credits: 4 },
+                    { name: "Adv Comm", grade: "A", credits: 2 },
+                    { name: "Equations", grade: "B", credits: 3 },
+                    { name: "Management", grade: "A", credits: 2 },
+                    { name: "Environment", grade: "B", credits: 2 }
+                ],
+                cgpa: 8.45,
+                totalCredits: 20,
+                classRank: "7/120",
+                semesterStatus: "Passed"
+            },
+            3: {
+                subjects: [
+                    { name: "C++", grade: "A", credits: 4 },
+                    { name: "DSA", grade: "A", credits: 4 },
+                    { name: "Digital Logic", grade: "A", credits: 3 },
+                    { name: "Pro Comm", grade: "A", credits: 2 }
+                ],
+                cgpa: 9.0,
+                totalCredits: 13,
+                classRank: "3/120",
+                semesterStatus: "Passed"
+            },
+            4: {
+                subjects: [
+                    { name: "OS", grade: "-", credits: 4 },
+                    { name: "DBMS", grade: "-", credits: 4 },
+                    { name: "Algebra", grade: "-", credits: 3 },
+                    { name: "Python", grade: "-", credits: 3 }
+                ],
+                cgpa: null,
+                totalCredits: 13,
+                classRank: "--",
+                semesterStatus: "Ongoing"
+            }
+        };
+
+        function refreshData() {
+            const semester = document.getElementById('semester-select').value;
+            const data = semesterData[semester];
+
+            document.getElementById('cumulative-gpa').innerText = `Cumulative GPA: ${data.cgpa}`;
+            document.getElementById('total-credits').innerText = data.totalCredits;
+            document.getElementById('class-rank').innerText = data.classRank;
+            document.getElementById('semester-status').innerText = data.semesterStatus;
+
+            const gradesTable = document.getElementById('grades-table').getElementsByTagName('tbody')[0];
+            gradesTable.innerHTML = '';
+            data.subjects.forEach(subject => {
+                const row = gradesTable.insertRow();
+                row.insertCell(0).innerText = subject.name;
+                row.insertCell(1).innerText = subject.grade;
+                row.insertCell(2).innerText = subject.credits;
+                row.insertCell(3).innerText = subject.grade === '-' ? '-' : (subject.credits * (subject.grade === 'A' ? 4 : subject.grade === 'B' ? 3 : 0));
+            });
+
+            updateChart(data.subjects);
+        }
+
+        function exportToCSV() {
+            const semester = document.getElementById('semester-select').value;
+            const data = semesterData[semester];
+            const csvContent = [
+                ['Subject', 'Grade', 'Credits', 'Grade Points'],
+                ...data.subjects.map(subject => [subject.name, subject.grade, subject.credits, subject.grade === '-' ? '-' : (subject.credits * (subject.grade === 'A' ? 4 : subject.grade === 'B' ? 3 : 0))])
+            ].map(e => e.join(",")).join("\n");
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            const url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", `semester_${semester}_grades.csv`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function updateChart(subjects) {
+            const ctx = document.getElementById('performance-chart').getContext('2d');
+            const grades = subjects.map(subject => {
+                switch (subject.grade) {
+                    case 'A': return 4;
+                    case 'B': return 3;
+                    case 'C': return 2;
+                    case 'D': return 1;
+                    case 'F': return 0;
+                    default: return 0;
+                }
+            });
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: subjects.map(subject => subject.name),
+                    datasets: [{
+                        label: 'Grade Points',
+                        data: grades,
+                        backgroundColor: 'rgba(52, 152, 219, 0.2)',
+                        borderColor: 'rgba(52, 152, 219, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Subjects'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Grade Points'
+                            },
+                            beginAtZero: true,
+                            max: 4
+                        }
+                    }
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            refreshData();
+        });
+        // Performance Trend Chart Dynamic Update
+document.addEventListener('DOMContentLoaded', () => {
+    // Performance data for each semester
+    const performanceData = {
+        'Semester 1': [
+            { semester: 'Sem 1', gpa: 8.65 },
+            { semester: 'Sem 2', gpa: 8.75 },
+            { semester: 'Sem 3', gpa: 8.80 },
+            { semester: 'Sem 4', gpa: 8.85 }
+        ],
+        'Semester 2': [
+            { semester: 'Sem 1', gpa: 8.55 },
+            { semester: 'Sem 2', gpa: 8.65 },
+            { semester: 'Sem 3', gpa: 8.70 },
+            { semester: 'Sem 4', gpa: 8.75 }
+        ],
+        'Semester 3': [
+            { semester: 'Sem 1', gpa: 8.75 },
+            { semester: 'Sem 2', gpa: 8.85 },
+            { semester: 'Sem 3', gpa: 8.90 },
+            { semester: 'Sem 4', gpa: 8.95 }
+        ],
+        'Semester 4': [
+            { semester: 'Sem 1', gpa: 8.85 },
+            { semester: 'Sem 2', gpa: 8.95 },
+            { semester: 'Sem 3', gpa: 9.00 },
+            { semester: 'Sem 4', gpa: 9.05 }
+        ]
+    };
+
+    // Select the performance chart SVG
+    const performanceChart = document.querySelector('.performance-chart svg');
+
+    // Function to update the graph
+    function updatePerformanceGraph(selectedSemester) {
+        const data = performanceData[selectedSemester];
+
+        // Get the SVG to modify
+        if (!performanceChart) {
+            console.error('Performance chart SVG not found');
+            return;
+        }
+
+        // Update data points and line
+        const points = data.slice(0, 3).map((item, index) => {
+            const x = 100 + (index * 100);
+            const y = 170 - (item.gpa - 8.5) * 400; // Scale adjustment
+            return `${x},${y}`;
+        }).join(' ');
+
+        // Update polyline
+        const polyline = performanceChart.querySelector('polyline');
+        if (polyline) {
+            polyline.setAttribute('points', points);
+        }
+
+        // Update circles
+        const circles = performanceChart.querySelectorAll('circle');
+        data.slice(0, 3).forEach((item, index) => {
+            if (circles[index]) {
+                const x = 100 + (index * 100);
+                const y = 170 - (item.gpa - 8.5) * 400; // Scale adjustment
+                circles[index].setAttribute('cx', x);
+                circles[index].setAttribute('cy', y);
+            }
+        });
+
+        // Update Y-axis labels to reflect current range
+        const yLabels = performanceChart.querySelectorAll('text[x="40"]');
+        const maxGPA = Math.max(...data.map(d => d.gpa));
+        const minGPA = Math.min(...data.map(d => d.gpa));
+
+        if (yLabels[0]) yLabels[0].textContent = maxGPA.toFixed(1);
+        if (yLabels[1]) yLabels[1].textContent = ((maxGPA + minGPA) / 2).toFixed(1);
+        if (yLabels[2]) yLabels[2].textContent = minGPA.toFixed(1);
+    }
+
+    // Add event listeners to semester buttons
+    const semesterButtons = document.querySelectorAll('.semester-controls > *:not(.refresh)');
+    semesterButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            // Remove active state from all buttons
+            semesterButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Add active state to clicked button
+            e.target.classList.add('active');
+
+            // Update graph
+            updatePerformanceGraph(e.target.textContent.trim());
+        });
+    });
+
+    // Initialize with first semester
+    updatePerformanceGraph('Semester 1');
+});
+  </script>
+ </body>
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIT Bhopal - Faculty Directory</title>
+    <link rel="stylesheet" href="faculty-css.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar" aria-label="Main Navigation">
+            <a href="homepage.html" class="logo">
+                <img src="vit.png" alt="VIT Bhopal Logo" class="logo-img">
+            </a>
+            <ul>
+                <li><a href="home.html"><i class="fas fa-home"></i><span>Home</span></a></li>
+                <li><a href="profile.html"><i class="fas fa-user"></i><span>Profile</span></a></li>
+                <li>
+                    <a href="events.html">
+                        <i class="fa-solid fa-music"></i>
+                        <span>Events</span>
+                    </a>
+                </li>
+                <li><a href="faculty-html.html"><i class="fas fa-chalkboard-teacher"></i><span>Professors</span></a></li>
+                <li><a href="grades.html"><i class="fas fa-building"></i><span>Grades</span></a></li>
+                <li>
+                    <a href="leave.html">
+                        <i class="fa-solid fa-hotel"></i>
+                        <span>Leave Request</span>
+                    </a>
+                </li>
+                <li><a href="LOGIN PAGE.html"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
+            </ul>
+        </nav>
+
+    <div class="main-content">
+        <div class="header">
+            <h1>Faculty Information</h1>
+            <div class="search-container">
+                <input type="text" id="searchBar" class="search-input" onkeyup="searchFaculty()" placeholder="Search faculty by name">
+                <button class="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+
+        <div class="faculty-grid" id="facultyList">
+            <div class="faculty-card">
+                <img src="./assets/vijaykt.jpeg" alt="Dr. Vijay Kumar Trivedi">
+                <h2>Dr. Vijay Kumar Trivedi</h2>
+                <p>Assistant Professor Junior | SCOPE</p>
+                <p>vijaykumartrivedi@vitbhopal.ac.in</p>
+            </div>
+            <div class="faculty-card">
+                <img src="./assets/shriram.jpeg" alt="Dr. Shriram R">
+                <h2>Dr. Shriram R</h2>
+                <p>Deputy Director - Placement and Training</p>
+                <p>Email - shriram.r@vitbhopal.ac.in</p>
+                <p>Cabin no: - </p>
+                <p>Contact info: </p>
+            </div>
+            <div class="faculty-card">
+                <img src="user_profile.png" alt="Dr. George c Chandan">
+                <h2>Dr. George C Chandran</h2>
+                <p>	Professor Grade 1, School of Computing Science and Engineering</p>
+                <p>Email - george.chandran@vitbhopal.ac.in</p>
+                <p>Cabin no: - </p>
+                <p>Contact info: </p>
+            </div>
+            <div class="faculty-card">
+                <img src="./assets/mayank.jpeg" alt="Dr. Mayank Gupta">
+                <h2>Dr. Mayank Gupta</h2>
+                <p>Assistant Professor at VIT Bhopal University | School of Electrical and Electronics Engineering</p>
+                <p>Email - mayank.gupta@vitbhopal.ac.in</p>
+                <p>Cabin no: - </p>
+                <p>Contact info: </p>
+            </div>
+            <div class="faculty-card">
+                <img src="./assets/anant.jpeg" alt="Dr. Anant Kant Shukla">
+                <h2>Dr. Anant Kant Shukla</h2>
+                <p> Director of Student Wellfare | 	School of Applied Science and Language</p>
+                <p>Email - anantkant.shukla@vitbhopal.ac.in</p>
+                <p>Cabin no: - </p>
+                <p>Contact info: </p>
+            </div>
+            <div class="faculty-card">
+                <img src="./assets/lakshmi.jpeg" alt="Dr D Lakshmi">
+                <h2>Dr D Lakshmi</h2>
+                <p>Associate Professor | School of Computing Science Engineering and Artificial Intelligence (SCAI)</p>
+                <p>Email - lakshmi.d@vitbhopal.ac.in</p>
+                <p>Cabin no: - </p>
+                <p>Contact info: </p>
+            </div>
+            <div class="faculty-card">
+                <img src="./assets/marg.jpeg" alt="Dr. Maragatharajan">
+                <h2>Dr. Maragatharajan M</h2>
+                <p>Assistant Professor | School of Computer Science and Engineering (SCOPE)</p>
+                <p>Email - maragatharajan@vitbhopal.ac.in</p>
+                <p>Cabin no: - </p>
+                <p>Contact info: </p>
+            </div>
+            <div class="faculty-card">
+                <img src="./assets/neh.jpeg" alt="Dr. Neha Choubey">
+                <h2>Dr. Neha Choubey</h2>
+                <p>Assistant Director (Admission) & Senior Assistant Professor | School of Applied Science and Language</p>
+                <p>Email - neha.choubey@vitbhopal.ac.in</p>
+                <p>Cabin no: - </p>
+                <p>Contact info: </p>
+            </div>
+       
+        <div class="faculty-card">
+            <img src="user_profile.png" alt="Dr. S. Kannan">
+            <h2>Dr. S. Kannan</h2>
+            <p>Position: Dean</p>
+            <p>Email: s.kannan@vitbhopal.ac.in</p>
+            <p>Cabin no: G-01</p>
+            <p>Contact info: +91 9876543210</p>
+        </div>
+        <div class="faculty-card">
+            <img src="user_profile.png" alt="Dr. Vinod Bhatt">
+            <h2>Dr. Vinod Bhatt</h2>
+            <p>Position: Professor</p>
+            <p>Email: vinod.bhatt@vitbhopal.ac.in</p>
+            <p>Cabin no: G-02</p>
+            <p>Contact info: +91 9876543211</p>
+        </div>
+        <div class="faculty-card">
+            <img src="user_profile.png" alt="Dr. G. Vishnuvarthanan">
+            <h2>Dr. G. Vishnuvarthanan</h2>
+            <p>Position: HOD - Mechanical</p>
+            <p>Email: g.vishnuvarthanan@vitbhopal.ac.in</p>
+            <p>Cabin no: G-03</p>
+            <p>Contact info: +91 9876543212</p>
+        </div>
+        <div class="faculty-card">
+            <img src="user_profile.png" alt="Dr. Manisha Jain">
+            <h2>Dr. Manisha Jain</h2>
+            <p>Position: Associate Professor</p>
+            <p>Email: manisha.jain@vitbhopal.ac.in</p>
+            <p>Cabin no: G-04</p>
+            <p>Contact info: +91 9876543213</p>
+        </div>
+        <div class="faculty-card">
+            <img src="user_profile.png" alt="Dr. Jasmine Selvakimari">
+            <h2>Dr. Jasmine Selvakimari</h2>
+            <p>Position: Assistant Professor</p>
+            <p>Email: jasmine.selvakimari@vitbhopal.ac.in</p>
+            <p>Cabin no: G-05</p>
+            <p>Contact info: +91 9876543214</p>
+        </div>
+        <div class="faculty-card">
+            <img src="user_profile.png" alt="Dr. Manoj Acharya">
+            <h2>Dr. Manoj Acharya</h2>
+            <p>Position: Professor</p>
+            <p>Email: manoj.acharya@vitbhopal.ac.in</p>
+            <p>Cabin no: G-06</p>
+            <p>Contact info: +91 9876543215</p>
+        </div>
+        <div class="faculty-card">
+            <img src="user_profile.png" alt="Dr. Paras Jain">
+            <h2>Dr. Paras Jain</h2>
+            <p>Position: Associate Dean</p>
+            <p>Email: paras.jain@vitbhopal.ac.in</p>
+            <p>Cabin no: G-07</p>
+            <p>Contact info: +91 9876543216</p>
+        </div>
+        <div class="faculty-card">
+            <img src="user_profile.png" alt="Dr. Lakshmi D.">
+            <h2>Dr. Lakshmi D.</h2>
+            <p>Position: Professor</p>
+            <p>Email: lakshmi.d@vitbhopal.ac.in</p>
+            <p>Cabin no: G-08</p>
+            <p>Contact info: +91 9876543217</p>
+        </div>
+        <div class="faculty-card">
+            <img src="user_profile.png" alt="Dr. Pushpinder Singh Patheja">
+            <h2>Dr. Pushpinder Singh Patheja</h2>
+            <p>Position: Senior Professor</p>
+            <p>Email: pushpinder.patheja@vitbhopal.ac.in</p>
+            <p>Cabin no: G-09</p>
+            <p>Contact info: +91 9876543218</p>
+        </div>
+        <div class="faculty-card">
+            <img src="user_profile.png" alt="Dr. Dev Brat Gupta">
+            <h2>Dr. Dev Brat Gupta</h2>
+            <p>Position: Professor</p>
+            <p>Email: devbrat.gupta@vitbhopal.ac.in</p>
+            <p>Cabin no: G-10</p>
+            <p>Contact info: +91 9876543219</p>
+        </div>
+        <div class="faculty-card">
+            <img src="user_profile.png" alt="Dr. R. Senthil Kumar">
+            <h2>Dr. R. Senthil Kumar</h2>
+            <p>Position: Professor</p>
+            <p>Email: senthil.kumar@vitbhopal.ac.in</p>
+            <p>Cabin no: G-11</p>
+            <p>Contact info: +91 9876543220</p>
+        </div>
+        <div class="faculty-card">
+            <img src="user_profile.png" alt="Dr. Zaheer Kareem Ansari">
+            <h2>Dr. Zaheer Kareem Ansari</h2>
+            <p>Position: Associate Professor</p>
+            <p>Email: zaheer.kareem@vitbhopal.ac.in</p>
+            <p>Cabin no: G-12</p>
+            <p>Contact info: +91 9876543221</p>
+        </div>
+        <div class="faculty-card">
+            <img src="user_profile.png" alt="Dr. Nikhil Pateria">
+            <h2>Dr. Nikhil Pateria</h2>
+            <p>Position: Assistant Professor</p>
+            <p>Email: nikhil.pateria@vitbhopal.ac.in</p>
+            <p>Cabin no: G-13</p>
+            <p>Contact info: +91 9876543222</p>
+        </div>
+        <div class="faculty-card">
+            <img src="user_profile.png" alt="Dr. G.R. Hemalakshmi">
+            <h2>Dr. G.R. Hemalakshmi</h2>
+            <p>Position: Assistant Professor</p>
+            <p>Email: hemalakshmi.gr@vitbhopal.ac.in</p>
+            <p>Cabin no: G-14</p>
+            <p>Contact info: +91 9876543223</p>
+        </div>
+        <div class="faculty-card">
+            <img src="user_profile.png" alt="Dr. Venkat Padhy">
+            <h2>Dr. Venkat Padhy</h2>
+            <p>Position: Associate Professor</p>
+            <p>Email: venkat.padhy@vitbhopal.ac.in</p>
+            <p>Cabin no: G-15</p>
+            <p>Contact info: +91 9876543224</p>
+        </div>
+        
+    </div>
+
+    <script>
+        function searchFaculty() {
+            const input = document.getElementById('searchBar').value.toLowerCase();
+            const facultyCards = document.querySelectorAll('.faculty-card');
+            
+            facultyCards.forEach((card) => {
+                const facultyName = card.querySelector('h2').textContent.toLowerCase();
+                if (facultyName.includes(input)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

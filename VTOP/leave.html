@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hostel Leave Request</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Overall Container */
+        .container {
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .sidebar {
+            background-color: #1e467f;
+            color: #fff;
+            width: 80px;
+            padding-top: 20px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            transition: width 0.3s ease;
+            z-index: 1000;
+        }
+
+        .sidebar:hover {
+            width: 240px;
+        }
+
+        .sidebar:hover ~ .container {
+            margin-left: 240px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar ul li {
+            margin: 8px 0;
+        }
+
+        .sidebar ul li a {
+            display: flex;
+            align-items: center;
+            color: #fff;
+            text-decoration: none;
+            padding: 12px 20px;
+            white-space: nowrap;
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar ul li a i {
+            font-size: 20px;
+            min-width: 30px;
+        }
+
+        .sidebar ul li a span {
+            margin-left: 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar:hover ul li a span {
+            opacity: 1;
+        }
+
+        .logo-container {
+            padding: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo-img {
+            width: 60px;
+            height: 60px;
+            transition: all 0.3s ease;
+        }
+
+        /* Section Title */
+        .mb-6 {
+            margin-bottom: 1.5rem;
+        }
+
+        .text-xl {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+/* Progress Container */
+.progress-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 2rem;
+    width: 100%;
+}
+
+/* Circle Progress Bar Container */
+.progress-ring {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.progress-ring svg {
+    transform: rotate(-90deg); /* Rotate so the start is from top */
+}
+
+.progress-ring circle {
+    fill: none;
+    stroke-width: 12; /* Increase stroke width */
+    stroke-linecap: round;
+}
+
+/* Background circle */
+.progress-ring .background {
+    stroke: #e5e7eb; /* Light grey background */
+}
+
+/* Foreground (progress) circle */
+.progress-ring .foreground {
+    stroke: #3b82f6; /* Blue for Outing */
+    stroke-dasharray: 440; /* Max circumference of the circle */
+    stroke-dashoffset: 440; /* Initially fully off */
+    transition: stroke-dashoffset 0.6s ease; /* Smooth transition */
+}
+
+/* Leave progress foreground (green) */
+.progress-ring.leave .foreground {
+    stroke: #10b981; /* Green for Leave */
+}
+
+/* Progress Text */
+.progress-text {
+    position: absolute;
+    font-size: 18px;
+    font-weight: bold;
+    color: #2d3748;
+}
+
+        /* Progress Text Styling */
+        #outingRequestCount,
+        #leaveRequestCount {
+            font-weight: 500;
+            font-size: 1rem;
+            color: #2d3748;
+        }
+
+        /* Alert Box Styling (Already included in the previous CSS) */
+        .alert {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 0.5rem;
+            display: none;
+        }
+
+        .alert[aria-live="polite"] {
+            display: block;
+        }
+
+        .alert-success {
+            background-color: #d1fae5;
+            color: #065f46;
+            border: 1px solid #34d399;
+        }
+
+        .alert-error {
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #f87171;
+        }
+
+        /* Form Inputs and Buttons */
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            margin-top: 0.5rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #3b82f6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2563eb;
+        }
+
+        .btn-success {
+            background-color: #10b981;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #059669;
+        }
+    </style>
+</head>
+<body class="font-roboto bg-gray-50">
+    <div class="container mx-auto p-8">
+        <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-6">
+            <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Hostel Leave Request</h1>
+
+            <div id="alertBox" class="alert" aria-live="polite"></div>
+
+            <form id="leaveRequestForm" class="space-y-4">
+                <div>
+                    <label class="block text-gray-700 font-medium" for="studentName">Student Name</label>
+                    <input type="text" id="studentName" name="studentName" class="form-input" required>
+                </div>
+
+                <div>
+                    <label class="block text-gray-700 font-medium" for="studentId">Student ID</label>
+                    <input type="text" id="studentId" name="studentId" class="form-input" required pattern="\d{8}" title="Enter an 8-digit student ID">
+                </div>
+
+                <div>
+                    <label class="block text-gray-700 font-medium" for="leaveType">Leave Type</label>
+                    <select id="leaveType" name="leaveType" class="form-input">
+                        <option value="outing">Outing Leave</option>
+                        <option value="medical">Medical Leave</option>
+                        <option value="personal">Personal Leave</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-gray-700 font-medium" for="leaveReason">Reason for Leave</label>
+                    <textarea id="leaveReason" name="leaveReason" rows="4" class="form-input" required minlength="10"></textarea>
+                </div>
+
+                <div id="leaveDatesSection" style="display: none;">
+                    <label class="block text-gray-700 font-medium" for="leaveDates">Leave Dates</label>
+                    <input type="date" id="leaveDates" name="leaveDates" class="form-input">
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-primary">Submit Leave Request</button>
+                </div>
+            </form>
+            <nav class="sidebar">
+                <div class="logo-container">
+                    <img src="vit.png" alt="VIT Logo" class="logo-img">
+                </div>
+                <ul>
+                    <li><a href="home.html"><i class="fas fa-home"></i><span>Home</span></a></li>
+                    <li><a href="profile.html"><i class="fas fa-user"></i><span>Profile</span></a></li>
+                    <li><a href="events.html"><i class="fas fa-music"></i><span>Events</span></a></li>
+                    <li><a href="faculty.html"><i class="fas fa-chalkboard-teacher"></i><span>Professors</span></a></li>
+                    <li><a href="grades.html"><i class="fas fa-graduation-cap"></i><span>Grades</span></a></li>
+                    <li><a href="leave.html"><i class="fas fa-hotel"></i><span>Leave Request</span></a></li>
+                    <li><a href="LOGIN PAGE.html"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
+                </ul>
+            </nav>
+            <!-- Progress Section -->
+            <div class="mb-6">
+                <h2 class="text-xl font-semibold text-gray-800">Leave and Outing Requests</h2>
+
+                <!-- Progress Container for Outing and Leave Requests -->
+                <div class="progress-container">
+                    <!-- Outing Request Circular Progress -->
+                    <div class="progress-ring" id="outingProgressRing">
+                        <svg width="150" height="150" viewBox="0 0 150 150">
+                            <circle class="background" cx="75" cy="75" r="70"></circle>
+                            <circle class="foreground" cx="75" cy="75" r="70"></circle>
+                        </svg>
+                        <div class="progress-text" id="outingRequestText">0/3</div>
+                    </div>
+
+                    <!-- Leave Request Circular Progress -->
+                    <div class="progress-ring progress-ring-leave" id="leaveProgressRing">
+                        <svg width="150" height="150" viewBox="0 0 150 150">
+                            <circle class="background" cx="75" cy="75" r="70"></circle>
+                            <circle class="foreground" cx="75" cy="75" r="70"></circle>
+                        </svg>
+                        <div class="progress-text" id="leaveRequestText">0/1</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Store requests for the month
+        const requests = {
+            outings: 0,  // Outing leave count
+            leaves: 0,   // Leave count
+            currentMonth: new Date().getMonth() + 1, // Current month (1-12)
+            year: new Date().getFullYear() // Current year
+        };
+
+        // Function to update progress (circular)
+        function updateProgress() {
+            const outingProgress = (requests.outings / 3) * 100;
+            const leaveProgress = (requests.leaves / 1) * 100;
+
+            // Update Outing Circle
+            const outingCircle = document.querySelector("#outingProgressRing .foreground");
+            outingCircle.style.strokeDashoffset = 440 - (440 * outingProgress / 100);
+            document.getElementById('outingRequestText').textContent = `${requests.outings}/3`;
+
+            // Update Leave Circle
+            const leaveCircle = document.querySelector("#leaveProgressRing .foreground");
+            leaveCircle.style.strokeDashoffset = 440 - (440 * leaveProgress / 100);
+            document.getElementById('leaveRequestText').textContent = `${requests.leaves}/1`;
+        }
+
+        // Handle form submission
+        document.getElementById('leaveRequestForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const studentName = document.getElementById('studentName').value;
+            const studentId = document.getElementById('studentId').value;
+            const leaveType = document.getElementById('leaveType').value;
+            const leaveReason = document.getElementById('leaveReason').value;
+            const leaveDates = document.getElementById('leaveDates').value;
+
+            const alertBox = document.getElementById('alertBox');
+
+            // Date validation for leave type
+            let leaveDate = null;
+            if (leaveType === "medical" || leaveType === "personal") {
+                leaveDate = new Date(leaveDates);
+            }
+
+            // Validation check for required fields
+            const isRequestValid = studentName && studentId && leaveType && leaveReason && (leaveType === "outing" || (leaveType !== "outing" && leaveDates));
+
+            if (!isRequestValid) {
+                alertBox.classList.remove('alert-success');
+                alertBox.classList.add('alert-error');
+                alertBox.textContent = 'Please fill in all required fields correctly.';
+                return;
+            }
+
+            // Check for the number of outings or leaves within the current month
+            if (leaveType === "outing") {
+                if (requests.outings >= 3) {
+                    alertBox.classList.remove('alert-success');
+                    alertBox.classList.add('alert-error');
+                    alertBox.textContent = 'You can only request 3 outings in a month.';
+                    return;
+                }
+                requests.outings += 1;
+            } else if (leaveType === "medical" || leaveType === "personal") {
+                if (requests.leaves >= 1) {
+                    alertBox.classList.remove('alert-success');
+                    alertBox.classList.add('alert-error');
+                    alertBox.textContent = 'You can only request 1 leave in a month.';
+                    return;
+                }
+                requests.leaves += 1;
+            }
+
+            // Display success message
+            alertBox.classList.remove('alert-error');
+            alertBox.classList.add('alert-success');
+            alertBox.textContent = 'Your leave request has been successfully submitted!';
+
+            // Update the progress circles
+            updateProgress();
+        });
+
+        // Show and hide leave dates input based on leave type selection
+        document.getElementById('leaveType').addEventListener('change', function() {
+            const leaveType = this.value;
+            const leaveDatesSection = document.getElementById('leaveDatesSection');
+            if (leaveType === "outing") {
+                leaveDatesSection.style.display = "none";
+            } else {
+                leaveDatesSection.style.display = "block";
+            }
+        });
+    </script>
+</body>
+</html>

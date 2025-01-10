@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Course Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --dark-color: #2c3e50;
+            --light-color: #f4f6f8;
+        }
+
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        body.dark-mode .card {
+            background-color: #1e1e1e;
+            color: #ffffff;
+        }
+
+        body {
+            transition: background-color 0.3s, color 0.3s;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+                /* Sidebar Styles */
+                .sidebar {
+                    background-color: #1e467f;
+                    color: #fff;
+                    width: 80px;
+                    padding-top: 20px;
+                    position: fixed;
+                    height: 100%;
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                    transition: width 0.3s ease;
+                    z-index: 1000;
+                    overflow: hidden;
+            
+                }
+        
+                .sidebar:hover {
+                    width: 260px;
+                }
+        
+                .sidebar-logo {
+                    display: flex;
+                    align-items: center;
+                    padding: 20px 15px;
+                    margin-bottom: 20px;
+                }
+        
+                .sidebar-logo img {
+                    width: 50px;
+                    height: 50px;
+                    margin-right: 15px;
+                }
+        
+                .sidebar-logo h2 {
+                    font-size: 1.2rem;
+                    display: none;
+                    color: #fff;
+                }
+        
+                .sidebar:hover .sidebar-logo h2 {
+                    display: block;
+                }
+        
+                .sidebar-nav {
+                    list-style: none;
+                }
+        
+                .sidebar-nav li {
+                    margin: 15px 0;
+                }
+        
+                .sidebar-nav li a {
+                    display: flex;
+                    align-items: center;
+                    color: #fff;
+                    text-decoration: none;
+                    padding: 12px 20px;
+                    transition: all 0.3s ease;
+                    position: relative;
+                }
+        
+                .sidebar-nav li a:hover {
+                    background-color: rgba(255, 255, 255, 0.1);
+                }
+        
+                .sidebar-nav li a i {
+                    font-size: 1.2rem;
+                    margin-right: 15px;
+                    width: 30px;
+                    text-align: center;
+                }
+        
+                .sidebar-nav li a span {
+                    display: none;
+                    white-space: nowrap;
+                }
+        
+                .sidebar:hover .sidebar-nav li a span {
+                    display: inline;
+                }
+
+        .main-content {
+            margin-left: 250px;
+            transition: margin-left 0.3s;
+        }
+
+        .course-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            overflow: hidden;
+        }
+
+        .course-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .dashboard-stats .card {
+            background: linear-gradient(145deg, #f0f9ff, #e6f2ff);
+            border: none;
+            border-radius: 15px;
+            transition: transform 0.3s;
+        }
+
+        .dashboard-stats .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .mode-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1100;
+        }
+
+        .filter-section {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .animated-entry {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <img src="vit.png" alt="VIT Logo">
+            </div>
+            <ul class="sidebar-nav">
+                <li>
+                    <a href="thome.html">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="course.html">
+                        <i class="fas fa-book"></i>
+                        <span>My Courses</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="P.HTML">
+                        <i class="fas fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="attendance1.html">
+                        <i class="fas fa-clipboard-list"></i>
+                        <span>Attendance</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="n.html">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <span>Events</span>
+                    </a>
+                </li>
+                <li>
+                
+                    <a href="research.html">
+                        <i class="fas fa-flask"></i>
+                        <span>Research Hub</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="LOGIN PAGE.html">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+    <!-- Main Content -->
+    <div class="main-content p-4">
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <div class="row">
+                <div class="col-md-4">
+                    <select class="form-select" id="departmentFilter">
+                        <option>All Departments</option>
+                        <option>Computer Science</option>
+                        <option>Electrical Engineering</option>
+                        <option>Mechanical Engineering</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <select class="form-select" id="semesterFilter">
+                        <option>All Semesters</option>
+                        <option>Fall 2024</option>
+                        <option>Spring 2025</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" placeholder="Search Courses" id="courseSearch">
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Stats -->
+        <div class="row dashboard-stats mb-4">
+            <div class="col-md-3">
+                <div class="card p-3 text-center">
+                    <h5>Total Courses</h5>
+                    <h2 id="totalCoursesCount">15</h2>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card p-3 text-center">
+                    <h5>Total Students</h5>
+                    <h2 id="totalStudentsCount">450</h2>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card p-3 text-center">
+                    <h5>Active Departments</h5>
+                    <h2 id="activeDepartmentsCount">4</h2>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card p-3 text-center">
+                    <h5>Upcoming Events</h5>
+                    <h2 id="upcomingEventsCount">7</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Courses Grid -->
+        <div class="row" id="coursesGrid">
+            <!-- Courses will be dynamically populated -->
+        </div>
+    </div>
+
+    <!-- Dark Mode Toggle -->
+    <button class="btn btn-secondary mode-toggle" id="darkModeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize courses array with sample data
+            let courses = [
+                {
+                    id: 'CS101',
+                    name: 'Introduction to Programming',
+                    department: 'Computer Science',
+                    semester: 'Fall 2024',
+                    instructor: 'Dr. Sarah Johnson',
+                    students: 45,
+                    studentList: [],
+                    credits: 3
+                },
+                {
+                    id: 'EE202',
+                    name: 'Digital Electronics',
+                    department: 'Electrical Engineering',
+                    semester: 'Spring 2025',
+                    instructor: 'Prof. Michael Chen',
+                    students: 35,
+                    studentList: [],
+                    credits: 4
+                },
+                {
+                    id: 'ME301',
+                    name: 'Thermodynamics',
+                    department: 'Mechanical Engineering',
+                    semester: 'Fall 2024',
+                    instructor: 'Dr. Emily Davis',
+                    students: 50,
+                    studentList: [],
+                    credits: 3
+                }
+            ];
+        
+            // Function to handle Excel file upload
+            function handleFileUpload(event, courseId) {
+                const file = event.target.files[0];
+                
+                if (!file) {
+                    alert('No file selected');
+                    return;
+                }
+        
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    try {
+                        const data = new Uint8Array(e.target.result);
+                        const workbook = XLSX.read(data, { type: 'array' });
+                        
+                        const sheetName = workbook.SheetNames[0];
+                        const worksheet = workbook.Sheets[sheetName];
+                        
+                        const students = XLSX.utils.sheet_to_json(worksheet);
+                        console.log('Parsed students:', students);
+                        
+                        const courseIndex = courses.findIndex(course => course.id === courseId);
+                        
+                        if (courseIndex === -1) {
+                            alert('Course not found');
+                            return;
+                        }
+        
+                        const validatedStudents = students.filter(student => {
+                            const isValid = student.StudentID && 
+                                          student.FirstName && 
+                                          student.LastName && 
+                                          student.Email;
+                            
+                            if (!isValid) {
+                                console.log('Invalid student data:', student);
+                            }
+                            return isValid;
+                        }).map(student => ({
+                            id: student.StudentID,
+                            firstName: student.FirstName,
+                            lastName: student.LastName,
+                            email: student.Email
+                        }));
+        
+                        if (validatedStudents.length === 0) {
+                            alert('No valid student data found. Please check your Excel file format.');
+                            return;
+                        }
+        
+                        courses[courseIndex].studentList = [
+                            ...courses[courseIndex].studentList,
+                            ...validatedStudents
+                        ];
+                        courses[courseIndex].students = courses[courseIndex].studentList.length;
+        
+                        updateCourseStudentCount(courseId);
+                        alert(`Successfully added ${validatedStudents.length} students to the course`);
+                        populateCourses();
+        
+                    } catch (error) {
+                        console.error('Error processing file:', error);
+                        alert('Error processing the Excel file. Please check the format.');
+                    }
+                };
+        
+                reader.onerror = function(error) {
+                    console.error('File reading error:', error);
+                    alert('Error reading the file. Please try again.');
+                };
+        
+                reader.readAsArrayBuffer(file);
+            }
+        
+            // Function to update course student count in UI
+            function updateCourseStudentCount(courseId) {
+                const courseCard = document.querySelector(`.course-card[data-course-id="${courseId}"]`);
+                if (courseCard) {
+                    const course = courses.find(c => c.id === courseId);
+                    const studentsElement = courseCard.querySelector('.students-enrolled');
+                    if (studentsElement && course) {
+                        studentsElement.textContent = `Students Enrolled: ${course.students}`;
+                    }
+                }
+            }
+        
+            // Function to view students in a course
+            function viewStudents(courseId) {
+                const course = courses.find(c => c.id === courseId);
+                if (!course || course.studentList.length === 0) {
+                    alert('No students enrolled in this course');
+                    return;
+                }
+        
+                let studentTable = `
+                    <div class="modal fade" id="viewStudentsModal" tabindex="-1">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Students in ${course.name}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>First Name</th>
+                                                <th>Last Name</th>
+                                                <th>Email</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            ${course.studentList.map(student => `
+                                                <tr>
+                                                    <td>${student.id}</td>
+                                                    <td>${student.firstName}</td>
+                                                    <td>${student.lastName}</td>
+                                                    <td>${student.email}</td>
+                                                </tr>
+                                            `).join('')}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+        
+                const modalContainer = document.createElement('div');
+                modalContainer.innerHTML = studentTable;
+                document.body.appendChild(modalContainer.firstChild);
+        
+                const modal = new bootstrap.Modal(document.getElementById('viewStudentsModal'));
+                modal.show();
+        
+                // Clean up modal after hiding
+                document.getElementById('viewStudentsModal').addEventListener('hidden.bs.modal', function () {
+                    this.remove();
+                });
+            }
+        
+            // Function to add new course
+            function addNewCourse(event) {
+                event.preventDefault();
+                
+                const courseId = document.getElementById('courseId').value;
+                const courseName = document.getElementById('courseName').value;
+                const department = document.getElementById('courseDepartment').value;
+                const semester = document.getElementById('courseSemester').value;
+                const instructor = document.getElementById('courseInstructor').value;
+                const credits = parseInt(document.getElementById('courseCredits').value);
+        
+                if (courses.some(course => course.id === courseId)) {
+                    alert('A course with this ID already exists. Please use a unique course ID.');
+                    return;
+                }
+        
+                const newCourse = {
+                    id: courseId,
+                    name: courseName,
+                    department: department,
+                    semester: semester,
+                    instructor: instructor,
+                    credits: credits,
+                    students: 0,
+                    studentList: []
+                };
+        
+                courses.push(newCourse);
+                populateCourses();
+                
+                const modal = bootstrap.Modal.getInstance(document.getElementById('addCourseModal'));
+                modal.hide();
+                
+                document.getElementById('addCourseForm').reset();
+                alert('Course added successfully!');
+            }
+        
+            // Function to show add course modal
+            function showAddCourseModal() {
+                const modalHTML = `
+                    <div class="modal fade" id="addCourseModal" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Add New Course</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="addCourseForm">
+                                        <div class="mb-3">
+                                            <label for="courseId" class="form-label">Course ID</label>
+                                            <input type="text" class="form-control" id="courseId" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="courseName" class="form-label">Course Name</label>
+                                            <input type="text" class="form-control" id="courseName" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="courseDepartment" class="form-label">Department</label>
+                                            <select class="form-select" id="courseDepartment" required>
+                                                <option value="Computer Science">Computer Science</option>
+                                                <option value="Electrical Engineering">Electrical Engineering</option>
+                                                <option value="Mechanical Engineering">Mechanical Engineering</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="courseSemester" class="form-label">Semester</label>
+                                            <select class="form-select" id="courseSemester" required>
+                                                <option value="Fall 2024">Fall 2024</option>
+                                                <option value="Spring 2025">Spring 2025</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="courseInstructor" class="form-label">Instructor</label>
+                                            <input type="text" class="form-control" id="courseInstructor" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="courseCredits" class="form-label">Credits</label>
+                                            <input type="number" class="form-control" id="courseCredits" min="1" max="6" required>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-primary">Save Course</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+        
+                const modalContainer = document.createElement('div');
+                modalContainer.innerHTML = modalHTML;
+                document.body.appendChild(modalContainer.firstChild);
+        
+                const modal = new bootstrap.Modal(document.getElementById('addCourseModal'));
+                
+                // Add form submit handler
+                document.getElementById('addCourseForm').addEventListener('submit', addNewCourse);
+                
+                // Clean up modal after hiding
+                document.getElementById('addCourseModal').addEventListener('hidden.bs.modal', function () {
+                    this.remove();
+                });
+        
+                modal.show();
+            }
+        
+            // Function to populate courses
+            function populateCourses(filteredCourses = null) {
+                const coursesGrid = document.getElementById('coursesGrid');
+                coursesGrid.innerHTML = '';
+        
+                const coursesToDisplay = filteredCourses || courses;
+        
+                coursesToDisplay.forEach(course => {
+                    const courseCard = document.createElement('div');
+                    courseCard.className = 'col-md-4 mb-4 animated-entry';
+                    courseCard.innerHTML = `
+                        <div class="card course-card" data-course-id="${course.id}">
+                            <div class="card-body">
+                                <h5 class="card-title">${course.name} (${course.id})</h5>
+                                <p class="card-text">Department: ${course.department}</p>
+                                <p class="card-text">Semester: ${course.semester}</p>
+                                <p class="card-text">Instructor: ${course.instructor}</p>
+                                <p class="card-text students-enrolled">Students Enrolled: ${course.students}</p>
+                                <p class="card-text">Credits: ${course.credits}</p>
+                                <div class="btn-group">
+                                    <button class="btn btn-success" onclick="viewStudents('${course.id}')">View Students</button>
+                                    <label class="btn btn-primary">
+                                        Import Students
+                                        <input type="file" accept=".xlsx, .xls" style="display:none" 
+                                               onchange="handleFileUpload(event, '${course.id}')">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    coursesGrid.appendChild(courseCard);
+                });
+        
+                // Update dashboard stats
+                document.getElementById('totalCoursesCount').textContent = coursesToDisplay.length;
+                document.getElementById('totalStudentsCount').textContent = 
+                    coursesToDisplay.reduce((total, course) => total + course.students, 0);
+                document.getElementById('activeDepartmentsCount').textContent = 
+                    new Set(coursesToDisplay.map(course => course.department)).size;
+            }
+        
+            // Function to apply filters
+            function applyFilters() {
+                const departmentFilter = document.getElementById('departmentFilter').value;
+                const semesterFilter = document.getElementById('semesterFilter').value;
+                const searchQuery = document.getElementById('courseSearch').value.toLowerCase();
+        
+                const filteredCourses = courses.filter(course => {
+                    const matchesDepartment = departmentFilter === 'All Departments' || course.department === departmentFilter;
+                    const matchesSemester = semesterFilter === 'All Semesters' || course.semester === semesterFilter;
+                    const matchesSearch = searchQuery === '' || 
+                        course.name.toLowerCase().includes(searchQuery) || 
+                        course.id.toLowerCase().includes(searchQuery) ||
+                        course.instructor.toLowerCase().includes(searchQuery);
+        
+                    return matchesDepartment && matchesSemester && matchesSearch;
+                });
+        
+                populateCourses(filteredCourses);
+            }
+        
+            // Add event listeners for filters
+            document.getElementById('departmentFilter').addEventListener('change', applyFilters);
+            document.getElementById('semesterFilter').addEventListener('change', applyFilters);
+            document.getElementById('courseSearch').addEventListener('input', applyFilters);
+        
+            // Add event listener for dark mode toggle
+            document.getElementById('darkModeToggle').addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+            });
+        
+            // Expose necessary functions to global scope
+            window.handleFileUpload = handleFileUpload;
+            window.viewStudents = viewStudents;
+            window.showAddCourseModal = showAddCourseModal;
+        
+            // Initial population of courses
+            populateCourses();
+        
+            // Add the "Add Course" button
+            const addCourseBtn = document.createElement('button');
+            addCourseBtn.className = 'btn btn-success mb-3';
+            addCourseBtn.textContent = 'Add New Course';
+            addCourseBtn.addEventListener('click', showAddCourseModal);
+            document.getElementById('coursesGrid').parentNode.insertBefore(addCourseBtn, document.getElementById('coursesGrid'));
+        });
+        // Function to handle Excel file upload
+function handleFileUpload(event, courseId) {
+    const file = event.target.files[0];
+    
+    if (!file) {
+        alert('No file selected');
+        return;
+    }
+
+    // Create a new FileReader instance
+    const reader = new FileReader();
+    
+    reader.onload = function(e) {
+        try {
+            // Convert array buffer to binary string
+            const data = e.target.result;
+            const workbook = XLSX.read(data, { type: 'binary' });
+            
+            // Get first sheet
+            const sheetName = workbook.SheetNames[0];
+            const worksheet = workbook.Sheets[sheetName];
+            
+            // Convert to JSON
+            const students = XLSX.utils.sheet_to_json(worksheet);
+            
+            if (students.length === 0) {
+                alert('No data found in the Excel file');
+                return;
+            }
+
+            // Log the parsed data for debugging
+            console.log('Parsed students:', students);
+
+            // Find the course
+            const courseIndex = courses.findIndex(course => course.id === courseId);
+            
+            if (courseIndex === -1) {
+                alert('Course not found');
+                return;
+            }
+
+            // Validate and format student data
+            const validatedStudents = students.map(student => ({
+                id: student.StudentID?.toString() || '',
+                firstName: student.FirstName?.toString() || '',
+                lastName: student.LastName?.toString() || '',
+                email: student.Email?.toString() || ''
+            })).filter(student => 
+                student.id && 
+                student.firstName && 
+                student.lastName && 
+                student.email
+            );
+
+            if (validatedStudents.length === 0) {
+                alert('No valid student data found in the Excel file. Please check the format.');
+                return;
+            }
+
+            // Update the course with new students
+            courses[courseIndex] = {
+                ...courses[courseIndex],
+                studentList: [...validatedStudents],
+                students: validatedStudents.length
+            };
+
+            // Update the display
+            updateCourseStudentCount(courseId);
+            alert(`Successfully added ${validatedStudents.length} students to the course`);
+
+            // Refresh the course display
+            populateCourses();
+
+        } catch (error) {
+            console.error('Error processing file:', error);
+            alert('Error processing the Excel file. Please make sure it\'s a valid Excel file with the correct format.');
+        }
+    };
+
+    reader.onerror = function(error) {
+        console.error('Error reading file:', error);
+        alert('Error reading the file. Please try again.');
+    };
+
+    // Read the file as binary string
+    reader.readAsBinaryString(file);
+}
+
+// Function to view students
+function viewStudents(courseId) {
+    const course = courses.find(c => c.id === courseId);
+    
+    if (!course) {
+        alert('Course not found');
+        return;
+    }
+
+    if (!course.studentList || course.studentList.length === 0) {
+        alert('No students enrolled in this course');
+        return;
+    }
+
+    // Create modal HTML
+    const modalHTML = `
+        <div class="modal fade" id="studentsModal" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Students in ${course.name}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Student ID</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${course.studentList.map(student => `
+                                    <tr>
+                                        <td>${student.id}</td>
+                                        <td>${student.firstName}</td>
+                                        <td>${student.lastName}</td>
+                                        <td>${student.email}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    // Remove any existing modal
+    const existingModal = document.getElementById('studentsModal');
+    if (existingModal) {
+        existingModal.remove();
+    }
+
+    // Add modal to DOM
+    const modalContainer = document.createElement('div');
+    modalContainer.innerHTML = modalHTML;
+    document.body.appendChild(modalContainer.firstChild);
+
+    // Show modal
+    const modal = new bootstrap.Modal(document.getElementById('studentsModal'));
+    modal.show();
+
+    // Clean up modal when hidden
+    document.getElementById('studentsModal').addEventListener('hidden.bs.modal', function() {
+        this.remove();
+    });
+}
+
+// Make functions globally available
+window.handleFileUpload = handleFileUpload;
+window.viewStudents = viewStudents;
+</script>
+</body>
+</html>

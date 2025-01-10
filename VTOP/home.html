@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIT Education Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="logo-container">
+            <img src="vit.png" alt="VIT Logo" class="logo-img">
+        </div>
+        <ul>
+            <li>
+                <a href="home.html">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="profile.html">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                </a>
+            </li>
+            <li>
+                <a href="events.html">
+                    <i class="fa-solid fa-music"></i>
+                    <span>Events</span>
+                </a>
+            </li>
+            <li>
+                <a href="faculty-html.html">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <span>Professors</span>
+                </a>
+            </li>
+            <li>
+                <a href="grades.html">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>Grades</span>
+                </a>
+            </li>
+            <li>
+                <a href="leave.html">
+                    <i class="fa-solid fa-hotel"></i>
+                    <span>Leave Request</span>
+                </a>
+            </li>
+            <li>
+                <a href="LOGIN PAGE.html">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="header">
+            <div class="welcome-section">
+                <h1>Welcome, Harshit!</h1>
+                <div class="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="notifications">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </div>
+                <div class="profile-section" onclick="toggleProfileBox()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="quick-access">
+            <div class="quick-card">
+                <div class="card-icon">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <h3>CGPA Calculator</h3>
+                <p>Calculate your semester CGPA</p>
+                <a href="GPA.html" class="card-btn">Access Now</a> <!-- Update the URL -->
+            </div>
+            <div class="quick-card">
+                <div class="card-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <h3>Timetable</h3>
+                <p>View your class schedule</p>
+                <a href="timetable.html" class="card-btn">View Schedule</a> <!-- Update the URL -->
+            </div>
+            <div class="quick-card">
+                <div class="card-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Attendance Overview</h3>
+                <p>Check your attendance status</p>
+                <a href="a.html" class="card-btn">Check Now</a> <!-- Update the URL -->
+            </div>
+        </section>
+        <button id="bot-toggle">🤖</button>
+        <div id="chatbot" style="display:none;">
+            <div id="chat-header">
+                <span>College AI Assistant</span>
+                <button id="close-btn" style="background:none; border:none; color:white;">✕</button>
+            </div>
+            <div id="chat-messages"></div>
+            <div id="chat-input">
+                <input type="text" id="message-input" placeholder="Ask me something...">
+                <button id="send-btn">Send</button>
+            </div>
+        </div>
+        <!-- Spotlight Section -->
+        <section class="spotlight">
+            <div class="spotlight-content">
+                <div class="spotlight-head">
+                    <h2><i class="fas fa-star"></i> Spotlight</h2>
+                </div>
+                <div class="spotlight-body">
+                    <div class="announcement-section">
+                        <h3>Academics</h3>
+                        <div class="announcement">
+                            <p>Fall Semester 2022-23 Week End Intra Course Registration is open</p>
+                            <span class="timestamp">10:00 AM to Mid Night of 09-SEP-2022</span>
+                        </div>
+                        <div class="announcement">
+                            <p>Students who have carried out activities under VIT Faculty guidance for Industry Internship can use this format for the Certificate.</p>
+                        </div>
+                    </div>
+
+                    <div class="announcement-section">
+                        <h3>Events</h3>
+                        <div class="announcement">
+                            <p>VIT Bhopal Clubs Events</p>
+                        </div>
+                    </div>
+
+                    <div class="announcement-section">
+                        <h3>COE</h3>
+                        <div class="announcement">
+                            <p>Fall 24-25 Regular Arrear and Approved RE-FAT Registrations</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function toggleProfileBox() {
+            const profileBox = document.querySelector('.profile-hover-box');
+            profileBox.classList.toggle('active');
+        }
+ // College Chatbot Enhanced Version
+
+const data = {
+    events: [
+        { 
+            name: 'AI Workshop', 
+            date: 'December 3', 
+            description: 'A hands-on workshop on Machine Learning and AI advancements.', 
+            location: 'Tech Lab A', 
+            category: 'AI/Tech',
+            time: '2:00 PM - 5:00 PM',
+            registrationLink: 'https://forms.gle/J2GwRQfXZcR1F5e49',            speakerDetails: 'Dr. Emily Chen, Lead AI Researcher at TechInnovate'
+        },
+        { 
+            name: 'Cultural Fest', 
+            date: 'December 10-12', 
+            description: 'Experience the best of music, dance, and drama!', 
+            location: 'Auditorium', 
+            category: 'Cultural',
+            time: 'All Day Event',
+            ticketPrice: '$10 for full 3-day pass',
+            registrationLink: 'https://forms.gle/J2GwRQfXZcR1F5e49',
+                        competitionCategories: ['Dance', 'Music', 'Drama', 'Stand-up Comedy']
+        },
+        { 
+            name: 'Hackathon', 
+            date: 'December 15-16', 
+            description: 'Join our 48-hour coding hackathon and solve real-world problems.', 
+            location: 'Innovation Center', 
+            category: 'AI/Tech',
+            time: '9:00 AM Dec 15 - 5:00 PM Dec 16',
+            registrationLink: 'https://forms.gle/J2GwRQfXZcR1F5e49',
+                    prizes: [
+                { rank: 'First Place', reward: '$5000 and Tech Startup Mentorship' },
+                { rank: 'Second Place', reward: '$2500 and Cloud Credits' },
+                { rank: 'Third Place', reward: '$1000 and Internship Opportunity' }
+            ],
+            teamSize: '3-4 members',
+            registrationDeadline: 'December 10'
+        },
+        { 
+            name: 'Football Tournament', 
+            date: 'November 28-30', 
+            description: 'Inter-college football tournament. Teams of 11.', 
+            location: 'Sports Field', 
+            category: 'Sports',
+            time: 'Matches from 3:00 PM - 7:00 PM',
+            registrationLink: 'https://forms.gle/J2GwRQfXZcR1F5e49',
+            participatingColleges: ['Tech State', 'City University', 'Green Valley College', 'Metro Institute'],
+            championshipPrize: 'Trophy and $2500 Team Fund'
+        },
+        { 
+            name: 'Comedy Night', 
+            date: 'December 5', 
+            description: 'A night filled with laughter and fun with top comedians.', 
+            location: 'Cultural Hall', 
+            category: 'Fun',
+            time: '7:00 PM - 10:00 PM',
+            registrationLink: 'https://forms.gle/J2GwRQfXZcR1F5e49',
+            performers: ['Mike Johnson', 'Sarah Lee', 'Rob Williams'],
+            ticketPrice: '$15 per person'
+        },
+        {
+            name: 'Research Symposium',
+            date: 'December 20',
+            description: 'Annual student research presentations across multiple disciplines.',
+            location: 'Conference Center',
+            category: 'Academic',
+            time: '9:00 AM - 4:00 PM',
+            registrationLink: 'https://forms.gle/J2GwRQfXZcR1F5e49',
+            presentationTopics: ['Computer Science', 'Biology', 'Environmental Studies', 'Psychology']
+        }
+    ],
+    notifications: [
+        { 
+            title: 'Spring Semester Registration', 
+            details: 'Register for courses by December 15.',
+            deadline: '2023-12-15',
+            type: 'Academic',
+            priority: 'High',
+            additionalInfo: 'Online registration through student portal'
+        },
+        { 
+            title: 'Scholarship Applications', 
+            details: 'Apply now for merit-based scholarships by December 5.',
+            deadline: '2023-12-05',
+            type: 'Financial',
+            priority: 'Medium',
+            scholarshipTypes: ['Academic Merit', 'Sports Scholarship', 'Research Grant']
+        },
+        {
+            title: 'Library Overdue Notices',
+            details: 'Return overdue books by November 30 to avoid fines.',
+            deadline: '2023-11-30',
+            type: 'Library',
+            priority: 'Low',
+            fineDetails: '$1 per day after deadline'
+        },
+        {
+            title: 'Campus Safety Workshop',
+            details: 'Mandatory safety and awareness session for all students.',
+            date: 'December 8',
+            time: '4:00 PM',
+            location: 'Main Auditorium',
+            type: 'Safety',
+            priority: 'High'
+        }
+    ],
+    collegeFeatures: {
+        academicResources: [
+            {
+                name: 'Digital Library',
+                description: 'Access to 50,000+ academic journals and research papers',
+                accessLink: 'https://vitbhopal.ac.in/library/',
+                availableFor: ['Students', 'Faculty', 'Researchers']
+            },
+            {
+                name: 'Career Counseling',
+                description: 'One-on-one career guidance and placement support',
+                contactEmail: 'career.support@college.edu',
+                services: ['Resume Building', 'Interview Prep', 'Job Placement']
+            }
+        ],
+        campusFacilities: [
+            {
+                name: 'Innovation Lab',
+                description: 'Cutting-edge technology workspace for student projects',
+                equipment: ['3D Printers', 'High-Performance Computers', 'VR Stations'],
+                bookingLink: 'https://vitbhopal.ac.in/'
+            },
+            {
+                name: 'Wellness Center',
+                description: 'Comprehensive student health and mental wellness support',
+                services: [
+                    'Counseling Sessions', 
+                    'Fitness Classes', 
+                    'Medical Consultations', 
+                    'Stress Management Workshops'
+                ],
+                contactNumber: '+1 (555) 123-4567'
+            }
+        ]
+    },
+    motivationalQuotes: [
+        'Believe in yourself and all that you are. Know that there is something inside you that is greater than any obstacle.',
+        'The future depends on what you do today. Keep moving forward!',
+        'Success is not final, failure is not fatal: It is the courage to continue that counts.',
+        'Hard work beats talent when talent doesn\'t work hard.',
+        'Your education is the most powerful weapon you can use to change the world.'
+    ]
+};
+
+class CollegeChatbot {
+    constructor() {
+        this.chatbot = document.getElementById('chatbot');
+        this.botToggle = document.getElementById('bot-toggle');
+        this.closeBtn = document.getElementById('close-btn');
+        this.messagesContainer = document.getElementById('chat-messages');
+        this.inputField = document.getElementById('message-input');
+        this.sendBtn = document.getElementById('send-btn');
+        
+        this.awaitingCategory = false;
+        this.currentContext = null;
+        
+        this.initializeEventListeners();
+    }
+
+    initializeEventListeners() {
+        this.botToggle.addEventListener('click', () => this.showChatbot());
+        this.closeBtn.addEventListener('click', () => this.hideChatbot());
+        this.sendBtn.addEventListener('click', () => this.sendMessage());
+        this.inputField.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') this.sendMessage();
+        });
+
+        // Initial bot message
+        this.addMessage('Hello! I\'m your College AI Assistant. Type "help" to see what I can do.', 'bot');
+    }
+
+    showChatbot() {
+        this.chatbot.style.display = 'flex';
+        this.botToggle.style.display = 'none';
+    }
+
+    hideChatbot() {
+        this.chatbot.style.display = 'none';
+        this.botToggle.style.display = 'block';
+    }
+
+    addMessage(text, sender) {
+        const messageElement = document.createElement('div');
+        messageElement.innerHTML = text;
+        messageElement.className = sender + '-message';
+        this.messagesContainer.appendChild(messageElement);
+        this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
+    }
+
+    sendMessage() {
+        const userMessage = this.inputField.value.trim();
+
+        if (userMessage) {
+            this.addMessage(userMessage, 'user');
+            const botResponse = this.processMessage(userMessage);
+            this.addMessage(botResponse, 'bot');
+            this.inputField.value = '';
+        }
+    }
+
+    processMessage(userInput) {
+        userInput = userInput.toLowerCase().trim();
+        let response = '';
+
+        // Reset context if starting a new query
+        if (userInput === 'help' || userInput === 'start over') {
+            this.awaitingCategory = false;
+            this.currentContext = null;
+        }
+
+        // Handle events flow
+        if (userInput.includes('events') && !this.awaitingCategory) {
+            this.awaitingCategory = true;
+            response = `
+                <strong>Which category of events are you interested in?</strong>
+                <ul>
+                    <li>AI/Tech</li>
+                    <li>Cultural</li>
+                    <li>Sports</li>
+                    <li>Fun</li>
+                    <li>Academic</li>
+                    <li>All Events</li>
+                </ul>`;
+        } else if (this.awaitingCategory) {
+            // Process the user's category choice
+            const category = userInput.charAt(0).toUpperCase() + userInput.slice(1);
+            let filteredEvents;
+
+            if (category.toLowerCase() === 'all events') {
+                filteredEvents = data.events;
+            } else {
+                filteredEvents = data.events.filter(event => 
+                    event.category.toLowerCase() === category.toLowerCase()
+                );
+            }
+
+            if (filteredEvents.length > 0) {
+                response = `<strong>${category} Events:</strong><ul>`;
+                filteredEvents.forEach(event => {
+                    response += `
+                        <li>
+                            <strong>${event.name}</strong> - ${event.date}<br>
+                            <em>${event.description}</em><br>
+                            <strong>Location:</strong> ${event.location}<br>
+                            <strong>Time:</strong> ${event.time}<br>
+                            ${event.registrationLink ? 
+                                `<strong>Registration:</strong> <a href="${event.registrationLink}" target="_blank">Register Here</a>` : 
+                                ''}
+                        </li>`;
+                });
+                response += '</ul>';
+            } else {
+                response = `<strong>No events found in the "${category}" category.</strong>`;
+            }
+            this.awaitingCategory = false;
+        } 
+        // Other existing command handlers
+        else if (userInput.includes('notification')) {
+            response = `
+                <strong>Latest Notifications:</strong>
+                <ul>
+                    ${data.notifications.map(n => `
+                        <li><strong>${n.title}</strong>: ${n.details}</li>`).join('')}
+                </ul>`;
+        } 
+        else if (userInput.includes('motivate')) {
+            response = `<em>${data.motivationalQuotes[Math.floor(Math.random() * data.motivationalQuotes.length)]}</em>`;
+        } 
+        else if (userInput.includes('resources')) {
+            response = `
+                <strong>College Resources:</strong>
+                <h3>Academic Resources:</h3>
+                <ul>
+                    ${data.collegeFeatures.academicResources.map(resource => `
+                        <li>
+                            <strong>${resource.name}</strong>: ${resource.description}<br>
+                            ${resource.accessLink ? `<a href="${resource.accessLink}" target="_blank">Access Link</a>` : ''}
+                        </li>`).join('')}
+                </ul>
+                <h3>Campus Facilities:</h3>
+                <ul>
+                    ${data.collegeFeatures.campusFacilities.map(facility => `
+                        <li>
+                            <strong>${facility.name}</strong>: ${facility.description}<br>
+                            ${facility.bookingLink ? `<a href="${facility.bookingLink}" target="_blank">Booking Link</a>` : ''}
+                        </li>`).join('')}
+                </ul>`;
+        } 
+        else if (userInput === 'help') {
+            response = `
+                <strong>How I Can Assist You:</strong>
+                <ul>
+                    <li><strong>Events:</strong> Type <em>"events"</em> to explore campus events by category.</li>
+                    <li><strong>Notifications:</strong> Type <em>"notifications"</em> to get the latest updates.</li>
+                    <li><strong>Motivation:</strong> Type <em>"motivate me"</em> for an inspiring quote.</li>
+                    <li><strong>Resources:</strong> Type <em>"resources"</em> to learn about college facilities.</li>
+                    <li><strong>Help:</strong> Type <em>"help"</em> to see this menu again.</li>
+                </ul>`;
+        } 
+        else {
+            response = `<em>I'm not sure how to help with that. Type <strong>'help'</strong> to see what I can do!</em>`;
+        }
+
+        return response;
+    }
+}
+
+// Initialize the chatbot when the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', () => {
+    const chatbotInstance = new CollegeChatbot();
+});   
+    </script>
+</body>
+</html>

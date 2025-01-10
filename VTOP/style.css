@@ -1,0 +1,252 @@
+/* Global Styles */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    background-color: #1e467f;
+    color: #fff;
+    width: 80px;
+    padding-top: 20px;
+    position: fixed;
+    height: 100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transition: width 0.3s ease;
+    z-index: 1000;
+}
+
+.sidebar:hover {
+    width: 240px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 25px 0;
+}
+
+.sidebar ul li a {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    text-decoration: none;
+    padding: 15px;
+    transition: background-color 0.3s ease, border-radius 0.3s ease;
+    border-radius: 5px;
+}
+
+.sidebar ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.sidebar ul li a i {
+    font-size: 24px;
+    margin-right: 15px;
+    transition: margin 0.3s ease;
+}
+
+.sidebar:hover ul li a span {
+    display: inline-block;
+    font-size: 16px;
+}
+
+.sidebar ul li a span {
+    display: none;
+}
+
+.sidebar:hover ul li a i {
+    margin-right: 15px;
+}
+
+.logo-img {
+    width: 60px;
+    height: 60px;
+    margin-left: 10px;
+    margin-bottom: 15px;
+}
+
+/* Profile Header */
+.profile-header {
+    margin-left: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.profile-banner {
+    width: 100%;
+    height: 250px;
+    background-color: #1e467f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    margin-top: -70px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+
+}
+
+.profile-pic img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid white;
+}
+
+.profile-details {
+    margin-left: 20px;
+}
+
+.profile-details h1 {
+    font-size: 2em;
+    color: #1e467f;
+}
+
+.profile-details p {
+    color: #666;
+    font-size: 1.2em;
+}
+
+/* Profile Actions (Buttons) */
+.profile-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.profile-actions button {
+    background-color: #1e467f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    margin: 0 10px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color 0.2s ease, transform 0.2s;
+}
+
+.profile-actions button:hover {
+    background-color: #2e5b9f;
+    transform: scale(1.05);
+}
+
+.profile-actions button:focus {
+    outline: none;
+}
+
+/* Section Styles */
+.section {
+    display: none;
+    margin-left: 100px;
+    padding: 30px;
+    background-color: white;
+    border-radius: 60px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    transition: opacity 0.5s ease;
+}
+
+.section.active {
+    display: block;
+    opacity: 1;
+}
+
+.section h2 {
+    color: #1e467f;
+    font-size: 2em;
+    margin-bottom: 15px;
+}
+
+.section p {
+    font-size: 1.1em;
+    color: #444;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
+/* Profile Hover Box Styles */
+.profile-hover-box {
+    position: absolute;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    display: none; /* Initially hidden */
+    z-index: 1001;
+}
+
+.profile-hover-box.active {
+    display: block; /* Show when active */
+}
+
+.profile-hover-box h3 {
+    color: #1e467f;
+}
+
+.profile-hover-box ul {
+    list-style: none;
+    padding: 0;
+}
+
+.profile-hover-box ul li {
+    margin: 10px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 60px;
+    }
+
+    .sidebar:hover {
+        width: 200px;
+    }
+
+    .profile-header {
+        margin-left: 60px;
+    }
+
+    .profile-banner {
+        height: 200px;
+    }
+
+    .profile-info {
+        margin-top: -50px;
+    }
+
+    .profile-pic img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .profile-details h1 {
+        font-size: 1.5em;
+    }
+
+    .profile-actions button {
+        font-size: 1em;
+        padding: 8px 15px;
+    }
+}

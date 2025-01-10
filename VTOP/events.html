@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIT Events Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --dark-color: #2c3e50;
+            --light-color: #ecf0f1;
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            display: flex;
+            min-height: 100vh;
+            color: #333;
+        }
+
+       /* Sidebar (Unchanged from previous version) */
+       .sidebar {
+        background-color: #1e467f;
+        color: #fff;
+        width: 80px;
+        padding-top: 20px;
+        position: fixed;
+        height: 100%;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        transition: width 0.3s ease;
+        z-index: 1000;
+    }
+
+    .sidebar:hover {
+        width: 240px;
+    }
+
+    .sidebar ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .sidebar ul li {
+        margin: 25px 0;
+    }
+
+    .sidebar ul li a {
+        display: flex;
+        align-items: center;
+        color: #fff;
+        text-decoration: none;
+        padding: 15px;
+        transition: background-color 0.3s ease, border-radius 0.3s ease;
+        border-radius: 5px;
+    }
+
+    .sidebar ul li a:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .sidebar ul li a i {
+        font-size: 24px;
+        margin-right: 15px;
+        transition: margin 0.3s ease;
+    }
+
+    .sidebar:hover ul li a span {
+        display: inline-block;
+        font-size: 16px;
+    }
+
+    .sidebar ul li a span {
+        display: none;
+    }
+
+    .logo-img {
+        width: 60px;
+        height: 60px;
+        margin-left: 10px;
+        margin-bottom: 15px;
+    }
+
+        /* Rest of the sidebar styles remain the same as in previous version */
+
+        /* Main Content Styles */
+        .main-content {
+            margin-left: 80px;
+            width: calc(100% - 80px);
+            padding: 20px;
+        }
+        .add-event-section {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+    
+        .form-group {
+            margin-bottom: 15px;
+        }
+    
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    
+        .add-event-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+    
+        .add-event-btn:hover {
+            background-color: #2980b9;
+        }
+            /* Category Filter */
+            .category-filter {
+                display: flex;
+                justify-content: center;
+                margin-bottom: 40px;
+                gap: 15px;
+                flex-wrap: wrap;
+            }
+    
+            .category-btn {
+                padding: 10px 20px;
+                background-color: transparent;
+                border: 2px solid var(--primary-color);
+                border-radius: 50px;
+                color: var(--primary-color);
+                cursor: pointer;
+                transition: all var(--transition-speed);
+                font-weight: 600;
+                position: relative;
+                overflow: hidden;
+            }
+    
+            .category-btn::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: var(--primary-color);
+                transition: all var(--transition-speed);
+                z-index: -1;
+            }
+    
+            .category-btn:hover::before {
+                left: 0;
+            }
+    
+            .category-btn:hover {
+                color: white;
+            }
+    
+            .category-btn.active {
+                background-color: var(--primary-color);
+                color: white;
+            }
+        /* Improved Modal Styles */
+        .modal-content {
+            position: relative;
+            max-height: 80vh;
+            overflow-y: auto;
+            text-align: center;
+        }
+    
+        .modal-content img {
+            max-width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+    
+        .modal-close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #333;
+        }
+
+        /* Enhanced Event Container */
+        .events-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 20px 0;
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .event-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .event-card-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .event-card-content {
+            padding: 20px;
+        }
+
+        .event-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .event-category-badge {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+        }
+
+        .event-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-register {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-details {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 500px;
+            max-width: 90%;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar (Unchanged) -->
+ <!-- Sidebar -->
+ <nav class="sidebar">
+    <div class="logo-container">
+        <img src="vit.png" alt="VIT Logo" class="logo-img">
+    </div>
+    <ul>
+        <li>
+            <a href="home.html">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+        </li>
+        <li>
+            <a href="profile.html">
+                <i class="fas fa-user"></i>
+                <span>Profile</span>
+            </a>
+        </li>
+        <li>
+            <a href="events.html">
+                <i class="fa-solid fa-music"></i>
+                <span>Events</span>
+            </a>
+        </li>
+        <li>
+            <a href="faculty-html.html">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <span>Professors</span>
+            </a>
+        </li>
+        <li>
+            <a href="grades.html">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Grades</span>
+            </a>
+        </li>
+        <li>
+            <a href="leave.html">
+                <i class="fa-solid fa-hotel"></i>
+                <span>Leave Request</span>
+            </a>
+        </li>
+        <li>
+            <a href="LOGIN PAGE.html">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Category Filter -->
+        <div class="category-filter">
+            <button class="category-btn active" data-category="All">All Events</button>
+            <button class="category-btn" data-category="Academic">Academic</button>
+            <button class="category-btn" data-category="Cultural">Cultural</button>
+            <button class="category-btn" data-category="Sports">Sports</button>
+            <button class="category-btn" data-category="Technical">Technical</button>
+        </div>
+
+        <!-- Events Container -->
+        <div class="events-container" id="eventsContainer">
+            <!-- Events will be dynamically populated -->
+        </div>
+    </div>
+
+    <!-- Event Details Modal -->
+    <div id="eventDetailsModal" class="modal">
+        <div class="modal-content" id="modalContent">
+            <!-- Dynamic content will be inserted here -->
+        </div>
+    </div>
+    <div class="add-event-section">
+        <h2>Add a New Event</h2>
+        <form id="addEventForm">
+            <div class="form-group">
+                <input type="text" id="eventName" placeholder="Event Name" required>
+            </div>
+            <div class="form-group">
+                <select id="eventCategory" required>
+                    <option value="">Select Category</option>
+                    <option>Academic</option>
+                    <option>Cultural</option>
+                    <option>Sports</option>
+                    <option>Technical</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="text" id="coordinatorName" placeholder="Coordinator Name" required>
+            </div>
+            <div class="form-group">
+                <input type="number" id="entryFee" placeholder="Entry Fee" required>
+            </div>
+            <div class="form-group">
+                <textarea id="eventDescription" placeholder="Event Description" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+                <label>Event Date</label>
+                <input type="date" id="eventDate" required>
+            </div>
+            <div class="form-group">
+                <input type="text" id="eventVenue" placeholder="Venue" required>
+            </div>
+            <div class="form-group">
+                <label>Upload Event Image</label>
+                <input type="file" id="eventImageUpload" accept="image/*" required>
+                <img id="imagePreview" style="max-width: 200px; margin-top: 10px;">
+            </div>
+            <button type="submit" class="add-event-btn">Add Event</button>
+        </form>
+    </div>
+    <script>
+        // Enhanced Events Data
+        const eventsData = [
+        {
+            id: 1,
+            category: "Technical",
+            image: "poster.webp",
+            name: "AI & Machine Learning Hackathon",
+            coordinator: "Dr. Sarah Williams",
+            description: "Innovative hackathon focusing on cutting-edge AI and Machine Learning solutions. Participants will solve real-world challenges using advanced technologies.",
+            date: "20th-22nd October",
+            venue: "Innovation Lab",
+            entryFee: 15,
+            registrationLink: "https://forms.gle/J2GwRQfXZcR1F5e49"
+        },
+        {
+            id: 2,
+            category: "Cultural",
+            image: "p.webp",
+            name: "Rhythm & Fusion Dance Festival",
+            coordinator: "Prof. Michael Rodriguez",
+            description: "A spectacular dance competition showcasing diverse dance styles from classical to contemporary. Open to all dance enthusiasts and performers.",
+            date: "15th-16th November",
+            venue: "College Auditorium",
+            entryFee: 190,
+            registrationLink: "https://forms.gle/J2GwRQfXZcR1F5e49"
+        },
+        {
+            id: 3,
+            category: "Sports",
+            image: "s.webp",
+            name: "Campus Marathon Challenge",
+            coordinator: "Coach Alex Johnson",
+            description: "Annual marathon event with multiple categories including 5K, 10K, and half marathon. Prizes for top performers and free fitness merchandise.",
+            date: "5th September",
+            venue: "Campus Grounds",
+            entryFee: 50,
+            registrationLink: "https://forms.gle/J2GwRQfXZcR1F5e49"
+        },
+        {
+            id: 4,
+            category: "Academic",
+            image: "a.webp",
+            name: "International Research Symposium",
+            coordinator: "Dr. Emily Chen",
+            description: "A prestigious academic conference bringing together researchers, scholars, and industry experts to present groundbreaking research across multiple disciplines.",
+            date: "10th-12th December",
+            venue: "Academic Conference Center",
+            entryFee:100,
+            registrationLink: "https://forms.gle/J2GwRQfXZcR1F5e49"
+        },
+        {
+            id: 5,
+            category: "Technical",
+            image: "te.webp",
+            name: "Advanced Robotics Challenge",
+            coordinator: "Prof. David Kim",
+            description: "Cutting-edge robotics competition challenging students to design, build, and demonstrate innovative robotic solutions for real-world problems.",
+            date: "25th-27th November",
+            venue: "Robotics Innovation Center",
+            entryFee: 200,
+            registrationLink: "https://forms.gle/J2GwRQfXZcR1F5e49"
+        },
+        {
+            id: 6,
+            category: "Cultural",
+            image: "p.webp",
+            name: "Campus Music Extravaganza",
+            coordinator: "Ms. Rachel Thompson",
+            description: "A vibrant music festival featuring student bands, solo performers, and professional artists across multiple genres and musical styles.",
+            date: "8th-9th October",
+            venue: "Open Air Stage",
+            entryFee: 80,
+            registrationLink: "https://forms.gle/J2GwRQfXZcR1F5e49"
+        },
+        {
+            id: 7,
+            category: "Sports",
+            image: "s.webp",
+            name: "Inter-College Esports Championship",
+            coordinator: "Mr. Jake Anderson",
+            description: "High-stakes esports tournament featuring popular games like DOTA 2, CS:GO, and League of Legends. Substantial cash prizes for top teams.",
+            date: "18th-20th October",
+            venue: "Gaming Arena",
+            entryFee: 150,
+            registrationLink: "https://forms.gle/J2GwRQfXZcR1F5e49"
+        },
+        {
+            id: 8,
+            category: "Academic",
+            image: "p.webp",
+            name: "Young Entrepreneurs Startup Expo",
+            coordinator: "Dr. Lisa Martinez",
+            description: "Innovative startup showcase and competition where students pitch groundbreaking business ideas to industry mentors and potential investors.",
+            date: "30th November",
+            venue: "Innovation Hub",
+            entryFee: 90,
+            registrationLink: "https://forms.gle/J2GwRQfXZcR1F5e49"
+        },
+        {
+            id: 9,
+            category: "Technical",
+            image: "poster.webp",
+            name: "Cybersecurity & Ethical Hacking Workshop",
+            coordinator: "Mr. Ryan Thompson",
+            description: "Comprehensive workshop on cybersecurity principles, ethical hacking techniques, and hands-on training in network security and penetration testing.",
+            date: "12th-14th September",
+            venue: "Cybersecurity Lab",
+            entryFee: 120,
+            registrationLink: "https://forms.gle/J2GwRQfXZcR1F5e49"
+        },
+        {
+            id: 10,
+            category: "Cultural",
+            image: "p.webp",
+            name: "Theatrical Arts & Drama Festival",
+            coordinator: "Prof. Sarah Collins",
+            description: "Celebrating theatrical arts with performances, playwriting competitions, and workshops led by renowned theater professionals and directors.",
+            date: "22nd-24th October",
+            venue: "University Theater",
+            entryFee: 100,
+            registrationLink: "https://forms.gle/J2GwRQfXZcR1F5e49"
+        }
+    ];
+
+        // Event Rendering Function
+        function renderEvents(category = 'All') {
+            const container = document.getElementById('eventsContainer');
+            container.innerHTML = '';
+
+            const filteredEvents = category === 'All' 
+                ? eventsData 
+                : eventsData.filter(event => event.category === category);
+
+            filteredEvents.forEach(event => {
+                const eventCard = document.createElement('div');
+                eventCard.classList.add('event-card');
+                eventCard.innerHTML = `
+                    <img src="${event.image}" alt="${event.name}" class="event-card-image">
+                    <div class="event-card-content">
+                        <div class="event-card-header">
+                            <h3>${event.name}</h3>
+                            <span class="event-category-badge">${event.category}</span>
+                        </div>
+                        <p>${event.description.substring(0, 100)}...</p>
+                        <div class="event-actions">
+                            <button class="btn btn-details" onclick="showEventDetails(${event.id})">
+                                View Details
+                            </button>
+                            <button class="btn btn-register" onclick="openRegistration('${event.registrationLink}')">
+                                Register
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(eventCard);
+            });
+        }
+
+        // Show Event Details Modal
+        function showEventDetails(eventId) {
+            const event = eventsData.find(e => e.id === eventId);
+            const modal = document.getElementById('eventDetailsModal');
+            const modalContent = document.getElementById('modalContent');
+
+            modalContent.innerHTML = `
+                <h2>${event.name}</h2>
+                <img src="${event. image}" alt="${event.name}" class="event-card-image">
+                <p><strong>Coordinator:</strong> ${event.coordinator}</p>
+                <p><strong>Description:</strong> ${event.description}</p>
+                <p><strong>Date:</strong> ${event.date}</p>
+                <p><strong>Venue:</strong> ${event.venue}</p>
+                <p><strong>Entry Fee:</strong> ₹${event.entryFee}</p>
+                <button onclick="closeModal()" style="margin-top: 20px;">Close</button>
+            `;
+            modal.style.display = 'flex';
+        }
+
+        // Open Registration Link
+        function openRegistration(link) {
+            window.open(link, '_blank');
+        }
+
+        // Close Modal
+        function closeModal() {
+            const modal = document.getElementById('eventDetailsModal');
+            modal.style.display = 'none';
+        }
+
+        // Category Filter Event Listeners
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                renderEvents(this.dataset.category);
+            });
+        });
+
+        // Initial render of all events
+        renderEvents();
+        document.getElementById('eventImageUpload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+    
+            reader.onload = function(e) {
+                // You can preview the image or store the base64 encoded image
+                document.getElementById('imagePreview').src = e.target.result;
+            }
+    
+            reader.readAsDataURL(file);
+        });
+    
+        // Form Validation and Submission
+        document.getElementById('addEventForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+    
+            // Validate inputs
+            const eventName = document.getElementById('eventName').value.trim();
+            const eventCategory = document.getElementById('eventCategory').value;
+            const coordinatorName = document.getElementById('coordinatorName').value.trim();
+            const entryFee = document.getElementById('entryFee').value;
+            const eventDescription = document.getElementById('eventDescription').value.trim();
+            const eventDate = document.getElementById('eventDate').value;
+            const eventVenue = document.getElementById('eventVenue').value.trim();
+            const eventImage = document.getElementById('eventImageUpload').files[0];
+    
+            // Basic validation
+            if (!eventName || !eventCategory || !coordinatorName || !entryFee || 
+                !eventDescription || !eventDate || !eventVenue || !eventImage) {
+                alert('Please fill in all fields and upload an image');
+                return;
+            }
+    
+            // Create new event object
+            const newEvent = {
+                id: eventsData.length + 1,
+                category: eventCategory,
+                image: URL.createObjectURL(eventImage), // Temporary image URL
+                name: eventName,
+                coordinator: coordinatorName,
+                description: eventDescription,
+                date: new Date(eventDate).toLocaleDateString('en-US', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                }),
+                venue: eventVenue,
+                entryFee: parseFloat(entryFee),
+                registrationLink: `https://forms.gle/event-${eventName.replace(/\s+/g, '-').toLowerCase()}`
+            };
+    
+            // Add to events data
+            eventsData.push(newEvent);
+    
+            // Re-render events
+            renderEvents();
+    
+            // Reset form
+            this.reset();
+            alert('Event added successfully!');
+        });
+    
+        // Modify the showEventDetails function
+        function showEventDetails(eventId) {
+            const event = eventsData.find(e => e.id === eventId);
+            const modal = document.getElementById('eventDetailsModal');
+            const modalContent = document.getElementById('modalContent');
+    
+            modalContent.innerHTML = `
+                <button class="modal-close-btn" onclick="closeModal()">×</button>
+                <h2>${event.name}</h2>
+                <img src="${event.image}" alt="${event.name}">
+                <p><strong>Category:</strong> ${event.category}</p>
+                <p><strong>Coordinator:</strong> ${event.coordinator}</p>
+                <p><strong>Description:</strong> ${event.description}</p>
+                <p><strong>Date:</strong> ${event.date}</p>
+                <p><strong>Venue:</strong> ${event.venue}</p>
+                <p><strong>Entry Fee:</strong> ₹${event.entryFee}</p>
+                <button onclick="openRegistration('${event.registrationLink}')" class="btn btn-register">Register Now</button>
+            `;
+            modal.style.display = 'flex';
+        }
+    </script>
+</body>
+</html>

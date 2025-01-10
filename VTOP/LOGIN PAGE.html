@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIT VTOP Enhanced Login</title>
+    <style>
+        /* Google Font Import */
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap");
+
+        /* Global Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        /* Header Styles */
+        .header-box {
+            width: 100%;
+            height: 85px;
+            top: 0px;
+            background-color: #3586ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .header-box img {
+            width: 11%;
+            height: auto;
+        }
+
+        /* Container Styles */
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 35vh;
+            width: 100%;
+            max-width: 90%;
+            margin: 0 auto;
+            gap: 6%;
+        }
+
+        /* Rounded Box Styles */
+        .rounded-box1, .rounded-box2, .rounded-box3, .rounded-box4 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 0.8;
+            width: 200px;
+            height: 105px;
+            border-color: black;
+            border-radius: 15px;
+            box-shadow: 3px 3px 0px #c7c7c7;
+            text-align: center;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .rounded-box1:hover, .rounded-box2:hover, 
+        .rounded-box3:hover, .rounded-box4:hover {
+            transform: scale(1.05);
+        }
+
+        .rounded-box1 { background-color: #8cecd160; }
+        .rounded-box2 { background-color: #e0ce8260; }
+        .rounded-box3 { background-color: #ec8c8c60; }
+        .rounded-box4 { background-color: #5d5de160; }
+
+        .rounded-box1 img, .rounded-box2 img, 
+        .rounded-box3 img, .rounded-box4 img {
+            width: 25%;
+            height: auto;
+            margin-right: 10px;
+        }
+
+        .rounded-box1 p, .rounded-box2 p, 
+        .rounded-box3 p, .rounded-box4 p {
+            font-size: 20px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: bold;
+            padding-left: 20px;
+        }
+
+        /* Popup Styles */
+        .popup {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
+        .popup-content {
+            background: linear-gradient(135deg, #3586ff, #1e467f);
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            color: white;
+            text-align: center;
+        }
+
+        .popup-content .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .popup-content .close-btn:hover {
+            color: #ff4444;
+        }
+
+        .popup-content input {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 2px solid #3586ff;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .popup-content input:focus {
+            outline: none;
+            border-color: #ffffff;
+            box-shadow: 0 0 10px rgba(255,255,255,0.3);
+        }
+
+        .popup-content button {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .login-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .login-btn:hover {
+            background-color: #45a049;
+        }
+
+        .forgot-btn {
+            background-color: #FFC107;
+            color: black;
+        }
+
+        .forgot-btn:hover {
+            background-color: #FFD54F;
+        }
+
+        .back-btn {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .back-btn:hover {
+            background-color: #d32f2f;
+        }
+
+        /* Text Styles */
+        .text1 {
+            margin-top: 15px;
+            padding: 15px 0px;
+            text-align: center;
+            font-size: 2.3rem;
+            color: #00a862;
+            font-weight: 430;
+        }
+
+        .text2 {
+            padding: 0px 0px;
+            text-align: center;
+            font-size: 1rem;
+            color: #e7fa92;
+        }
+
+        /* Footer Styles */
+        .footer {
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            background: #3586ff;
+            min-height: 10px;
+            padding: 5px 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .menu__link {
+            font-size: 1.5rem;
+            color: #fff;
+            margin: 0 10px;
+            display: inline-block;
+            transition: 0.5s;
+            text-decoration: none;
+            opacity: 0.85;
+            font-weight: 1500;
+        }
+
+        .menu__link:hover {
+            opacity: 1;
+        }
+
+        .footer p {
+            color: #fff;
+            margin: 15px 0 10px 0;
+            font-size: 1rem;
+            font-weight: 300;
+        }
+
+        /* Wave Animation Styles */
+        .wave {
+            position: absolute;
+            top: -100px;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: url("https://i.ibb.co/wQZVxxk/wave.png");
+            background-size: 1000px 100px;
+        }
+
+        .wave#wave1 {
+            z-index: 1000;
+            opacity: 1;
+            bottom: 0;
+            animation: animateWaves 4s linear infinite }
+        
+        .wave#wave2 {
+            z-index: 999;
+            opacity: 0.5;
+            bottom: 10px;
+            animation: animate 4s linear infinite !important;
+        }
+        
+        .wave#wave3 {
+            z-index: 1000;
+            opacity: 0.2;
+            bottom: 15px;
+            animation: animateWaves 3s linear infinite;
+        }
+        
+        .wave#wave4 {
+            z-index: 999;
+            opacity: 0.7;
+            bottom: 20px;
+            animation: animate 3s linear infinite;
+        }
+        
+        @keyframes animateWaves {
+            0% {
+                background-position-x: 1000px;
+            }
+            100% {
+                background-position-x: 0px;
+            }
+        }
+        
+        @keyframes animate {
+            0% {
+                background-position-x: -1000px;
+            }
+            100% {
+                background-position-x: 0px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <div class="header-box">
+        <img src="VITLogoEmblem.png" alt="VIT Logo">
+    </div>
+
+    <!-- Main Text -->
+    <div class="text1">VTOP translates to "VIT on TOP"</div>
+    <div class="text2">
+        A digital initiative by the institute facilitating Faculty, Staff,
+        Students, Parents and Alumni to access and process Academics, Research,
+        Supporting services at one common platform.
+    </div>
+
+    <!-- Login Boxes Container -->
+    <div class="container">
+        <div class="rounded-box1" onclick="openPopup('students')">
+            <img src="students.png" alt="Students">
+            STUDENTS
+        </div>
+
+        <div class="rounded-box2" onclick="openPopup('teachers')">
+            <img src="employee.png" alt="Teachers">
+            TEACHERS
+        </div>
+
+        <div class="rounded-box3" onclick="openPopup('parents')">
+            <img src="parent.png" alt="Parents">
+            PARENTS
+        </div>
+
+        <div class="rounded-box4" onclick="openPopup('alumni')">
+            <img src="alumni.png" alt="Alumni">
+            ALUMNI
+        </div>
+    </div>
+
+    <!-- Popup Containers -->
+    <div id="studentsPopup" class="popup">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closePopup('students')">&times;</span>
+            <h2>Students Login</h2>
+            <input type="text" placeholder="Username" id="studentsUsername" value="123">
+            <input type="password" placeholder="Password" id="studentsPassword" value="123">
+            <button class="login-btn" onclick="login('students')">Login</button>
+            <button class="forgot-btn" onclick="forgotPassword('students')">Forgot Password</button>
+            <button class="back-btn" onclick="closePopup('students')">Go Back</button>
+        </div>
+    </div>
+
+    <div id="teachersPopup" class="popup">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closePopup('teachers')">&times;</span>
+            <h2>Teachers Login</h2>
+            <input type="text" placeholder="Username" id="teachersUsername" value="123">
+            <input type="password" placeholder="Password" id="teachersPassword" value="123">
+            <button class="login-btn" onclick="login('teachers')">Login</button>
+            <button class="forgot-btn" onclick="forgotPassword('teachers')">Forgot Password</button>
+            <button class="back-btn" onclick="closePopup('teachers')">Go Back</button>
+        </div>
+    </div>
+
+    <div id="parentsPopup" class="popup">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closePopup('parents')">&times;</span>
+            <h2>Parents Login</h2>
+            <input type="text" placeholder="Username" id="parentsUsername" value="123">
+            <input type="password" placeholder="Password" id="parentsPassword" value="123">
+            <button class="login-btn" onclick="login('parents')">Login</button>
+            <button class="forgot-btn" onclick="forgotPassword('parents')">Forgot Password</button>
+            <button class="back-btn" onclick="closePopup('parents')">Go Back</button>
+        </div>
+    </div>
+
+    <div id="alumniPopup" class="popup">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closePopup('alumni')">&times;</span>
+            <h2>Alumni Login</h2>
+            <input type="text" placeholder="Username" id="alumniUsername" value="123">
+            <input type="password" placeholder="Password" id="alumniPassword" value="123">
+            <button class="login-btn" onclick="login('alumni')">Login</button>
+            <button class="forgot-btn" onclick="forgotPassword('alumni')">Forgot Password</button>
+            <button class="back-btn" onclick="closePopup('alumni')">Go Back</button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="waves">
+            <div class="wave" id="wave1"></div>
+            <div class="wave" id="wave2"></div>
+            <div class="wave" id="wave3"></div>
+            <div class="wave" id="wave4"></div>
+        </div>
+        <ul class="menu">
+            <a class="menu__link" href="https://www.vitbhopal.ac.in">VIT Bhopal University</a>
+        </ul>
+        <p>&copy;2024 Team 112 | All Rights Reserved</p>
+    </footer>
+
+    <script>
+        class LoginManager {
+            constructor() {
+                this.users = {
+                    students: { username: '123', password: '123', dashboard: 'home.html' },
+                    teachers: { username: '123', password: '123', dashboard: 'thome.html' },
+                    parents: { username: '123', password: '123', dashboard: 'home.html' },
+                    alumni: { username: '123', password: '123', dashboard: 'thome.html' }
+                };
+            }
+
+            openPopup(type) {
+                document.getElementById(type + 'Popup').style.display = 'block';
+            }
+
+            closePopup(type) {
+                document.getElementById(type + 'Popup').style.display = 'none';
+            }
+
+            login(type) {
+                const username = document.getElementById(type + 'Username').value;
+                const password = document.getElementById(type + 'Password').value;
+
+                const user = this.users[type];
+
+                if (username === user.username && password === user.password) {
+                    this.showNotification('Login Successful!', 'success');
+                    setTimeout(() => {
+                        window.location.href = user.dashboard;
+                    }, 1500);
+                } else {
+                    this.showNotification('Invalid Credentials!', 'error');
+                }
+            }
+
+            forgotPassword(type) {
+                const currentUser  = this.users[type];
+                const newPassword = prompt('Enter new password (minimum 6 characters):');
+                
+                if (newPassword && newPassword.length >= 6) {
+                    currentUser .password = newPassword;
+                    document.getElementById(type + 'Password').value = newPassword;
+                    this.showNotification('Password Updated Successfully!', 'success');
+                } else {
+                    this.showNotification('Invalid Password! Min 6 characters required.', 'error');
+                }
+            }
+
+            showNotification(message, type) {
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    padding: 15px;
+                    background-color: ${type === 'success' ? '#4CAF50' : '#f44336'};
+                    color: white;
+                    border-radius: 5px;
+                    z-index: 1100;
+                    animation: slideIn 0.5s ease-in-out;
+                `;
+                notification.textContent = message;
+                document.body.appendChild(notification);
+
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 3000);
+            }
+        }
+
+        const loginManager = new LoginManager();
+
+        window.openPopup = (type) => loginManager.openPopup(type);
+        window.closePopup = (type) => loginManager.closePopup(type);
+        window.login = (type) => loginManager.login(type);
+        window.forgotPassword = (type) => loginManager.forgotPassword(type);
+    </script>
+</body>
+</html>

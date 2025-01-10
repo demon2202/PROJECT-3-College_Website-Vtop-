@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIT Student Management Portal</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #2ecc71;
+            --background-light: #f4f6f7;
+            --text-color: #333;
+            --white: #ffffff;
+        }
+
+        body {
+            background-color: var(--background-light);
+            line-height: 1.6;
+            color: var(--text-color);
+        }
+                /* Sidebar Styles */
+                .sidebar {
+                    background-color: #1e467f;
+                    color: #fff;
+                    width: 80px;
+                    padding-top: 20px;
+                    position: fixed;
+                    height: 100%;
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                    transition: width 0.3s ease;
+                    z-index: 1000;
+                    overflow: hidden;
+                }
+        
+                .sidebar:hover {
+                    width: 260px;
+                }
+        
+                .sidebar-logo {
+                    display: flex;
+                    align-items: center;
+                    padding: 20px 15px;
+                    margin-bottom: 20px;
+                }
+        
+                .sidebar-logo img {
+                    width: 50px;
+                    height: 50px;
+                    margin-right: 15px;
+                }
+        
+                .sidebar-logo h2 {
+                    font-size: 1.2rem;
+                    display: none;
+                    color: #fff;
+                }
+        
+                .sidebar:hover .sidebar-logo h2 {
+                    display: block;
+                }
+        
+                .sidebar-nav {
+                    list-style: none;
+                }
+        
+                .sidebar-nav li {
+                    margin: 15px 0;
+                }
+        
+                .sidebar-nav li a {
+                    display: flex;
+                    align-items: center;
+                    color: #fff;
+                    text-decoration: none;
+                    padding: 12px 20px;
+                    transition: all 0.3s ease;
+                    position: relative;
+                }
+        
+                .sidebar-nav li a:hover {
+                    background-color: rgba(255, 255, 255, 0.1);
+                }
+        
+                .sidebar-nav li a i {
+                    font-size: 1.2rem;
+                    margin-right: 15px;
+                    width: 30px;
+                    text-align: center;
+                }
+        
+                .sidebar-nav li a span {
+                    display: none;
+                    white-space: nowrap;
+                }
+        
+                .sidebar:hover .sidebar-nav li a span {
+                    display: inline;
+                }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .student-header {
+            background: linear-gradient(135deg, var(--primary-color), #34495e);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .student-header h1 {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .student-header h1 i {
+            font-size: 1.5em;
+        }
+
+        .search-container {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .search-bar {
+            display: flex;
+            flex-grow: 1;
+        }
+
+        .search-bar input {
+            flex-grow: 1;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px 0 0 8px;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+        }
+
+        .search-bar button {
+            padding: 12px 20px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0 8px 8px 0;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .search-bar button:hover {
+            background: #34495e;
+        }
+
+        .student-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .student-table th, 
+        .student-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .student-table th {
+            background-color: var(--primary-color);
+            color: white;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .student-table tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-view {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-edit {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .btn-delete {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .close {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            gap: 15px;
+        }
+
+        .pagination button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pagination button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        @media screen and (max-width: 768px) {
+            .student-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .search-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <img src="vit.png" alt="VIT Logo">
+                <h2>Faculty Portal</h2>
+            </div>
+            <ul class="sidebar-nav">
+                <li>
+                    <a href="thome.html">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="course.html">
+                        <i class="fas fa-book"></i>
+                        <span>My Courses</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="P.HTML">
+                        <i class="fas fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="attendance.html">
+                        <i class="fas fa-clipboard-list"></i>
+                        <span>Attendance</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="n.html">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <span>Events</span>
+                    </a>
+                </li>
+                <li>
+                
+                    <a href="research.html">
+                        <i class="fas fa-flask"></i>
+                        <span>Research Hub</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="LOGIN PAGE.html">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+    <div class="container">
+        <header class="student-header">
+            <h1>
+                <i class="fas fa-graduation-cap"></i>
+                VIT Student Management
+            </h1>
+            <button id="addStudentBtn" class="btn btn-view">
+                <i class="fas fa-plus"></i> Add Student
+            </button>
+        </header>
+
+        <div class="search-container">
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search students by name, ID, or course">
+                <button onclick="searchStudents()">
+                    <i class="fas fa- search"></i>
+                </button>
+            </div>
+        </div>
+
+        <table class="student-table" id="studentTable">
+            <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Name</th>
+                    <th>Course</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="studentTableBody">
+                <tr>
+                    <td>VIT2024001</td>
+                    <td>Aarav Patel</td>
+                    <td>Computer Science</td>
+                    <td>aarav.patel@vit.edu.in</td>
+                    <td>
+                        <div class="action-buttons">
+                            <a href="#" class="btn btn-view">View</a>
+                            <a href="#" class="btn btn-edit">Edit</a>
+                            <a href="#" class="btn btn-delete">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>VIT2024002</td>
+                    <td>Priya Sharma</td>
+                    <td>Data Science</td>
+                    <td>priya.sharma@vit.edu.in</td>
+                    <td>
+                        <div class="action-buttons">
+                            <a href="#" class="btn btn-view">View</a>
+                            <a href="#" class="btn btn-edit">Edit</a>
+                            <a href="#" class="btn btn-delete">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+                <!-- Additional sample students can be added here -->
+            </tbody>
+        </table>
+
+        <div class="pagination">
+            <button id="prevPage" disabled>Previous</button>
+            <span id="pageInfo">Page 1 of 5</span>
+            <button id="nextPage">Next</button>
+        </div>
+    </div>
+
+    <!-- Add Student Modal -->
+    <div id="addStudentModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add New Student</h2>
+            <form id="addStudentForm">
+                <div class="form-group">
+                    <label for="studentName">Full Name</label>
+                    <input type="text" id="studentName" required>
+                </div>
+                <div class="form-group">
+                    <label for="studentEmail">Email</label>
+                    <input type="email" id="studentEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="studentCourse">Course</label>
+                    <select id="studentCourse" required>
+                        <option value="">Select Course</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Data Science">Data Science</option>
+                        <option value="Artificial Intelligence">Artificial Intelligence</option>
+                        <option value="Mechanical Engineering">Mechanical Engineering</option>
+                        <option value="Electronics">Electronics</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="button" onclick="addStudent()" class="btn btn-edit">Add Student</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const addStudentBtn = document.getElementById('addStudentBtn');
+        const addStudentModal = document.getElementById('addStudentModal');
+        const closeModal = document.getElementsByClassName('close')[0];
+
+        addStudentBtn.onclick = function() {
+            addStudentModal.style.display = 'block';
+        }
+
+        closeModal.onclick = function() {
+            addStudentModal.style.display = 'none';
+        }
+
+        function searchStudents() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const rows = document.getElementById('studentTableBody').getElementsByTagName('tr');
+
+            for (let row of rows) {
+                const cells = row.getElementsByTagName('td');
+                const rowText = Array.from(cells).map(cell => cell.textContent.toLowerCase()).join(' ');
+                
+                row.style.display = rowText.includes(searchInput) ? '' : 'none';
+            }
+        }
+
+        function validateStudentForm() {
+            const name = document.getElementById('studentName').value.trim();
+            const email = document.getElementById('studentEmail').value.trim();
+            const course = document.getElementById('studentCourse').value;
+
+            if (name === '' || email === '' || course === '') {
+                alert('Please fill in all required fields');
+                return false;
+            }
+
+            const emailRegex = /^[ ^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email address');
+                return false;
+            }
+
+            return true;
+        }
+
+        function addStudent() {
+            if (!validateStudentForm()) return;
+
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td>${generateStudentID()}</td>
+                <td>${document.getElementById('studentName').value}</td>
+                <td>${document.getElementById('studentCourse').value}</td>
+                <td>${document.getElementById('studentEmail').value}</td>
+                <td>
+                    <div class="action-buttons">
+                        <a href="#" class="btn btn-view">View</a>
+                        <a href="#" class="btn btn-edit">Edit</a>
+                        <a href="#" class="btn btn-delete">Delete</a>
+                    </div>
+                </td>
+            `;
+
+            document.getElementById('studentTableBody').appendChild(newRow);
+            addStudentModal.style.display = 'none';
+            document.getElementById('addStudentForm').reset();
+        }
+
+        function generateStudentID() {
+            const year = new Date().getFullYear();
+            const randomNum = Math.floor(1000 + Math.random() * 9000);
+            return `VIT${year}${randomNum}`;
+        }
+    </script>
+</body>
+</html>

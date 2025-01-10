@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <title>Faculty Profile - Dr. Rajesh Kumar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+        }
+
+        .main-content {
+            margin-left: 80px; /* Adjusted for sidebar */
+            padding: 20px;
+            width: calc(100% - 80px);
+            transition: margin-left 0.3s ease;
+        }
+                /* Sidebar Styles (unchanged) */
+                .sidebar {
+                    background-color: #1e467f;
+                    color: #fff;
+                    width: 80px;
+                    padding-top: 20px;
+                    position: fixed;
+                    height: 100%;
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                    transition: width 0.3s ease;
+                    z-index: 1000;
+                    overflow: hidden;
+                }
+        
+                .sidebar:hover {
+                    width: 260px;
+                }
+        
+                .sidebar-logo {
+                    display: flex;
+                    align-items: center;
+                    padding: 20px 15px;
+                    margin-bottom: 20px;
+                }
+        
+                .sidebar-logo img {
+                    width: 50px;
+                    height: 50px;
+                    margin-right: 15px;
+                }
+        
+                .sidebar-logo h2 {
+                    font-size: 1.2rem;
+                    display: none;
+                    color: #fff;
+                }
+        
+                .sidebar:hover .sidebar-logo h2 {
+                    display: block;
+                }
+        
+                .sidebar-nav {
+                    list-style: none;
+                }
+        
+                .sidebar-nav li {
+                    margin: 15px 0;
+                }
+        
+                .sidebar-nav li a {
+                    display: flex;
+                    align-items: center;
+                    color: #fff;
+                    text-decoration: none;
+                    padding: 12px 20px;
+                    transition: all 0.3s ease;
+                    position: relative;
+                }
+        
+                .sidebar-nav li a:hover {
+                    background-color: rgba(255, 255, 255, 0.1);
+                }
+        
+                .sidebar-nav li a i {
+                    font-size: 1.2rem;
+                    margin-right: 15px;
+                    width: 30px;
+                    text-align: center;
+                }
+        
+                .sidebar-nav li a span {
+                    display: none;
+                    white-space: nowrap;
+                }
+        
+                .sidebar:hover .sidebar-nav li a span {
+                    display: inline;
+                }
+
+        .profile-container {
+            background: linear-gradient(to right, #ffffff, #f9f9ff);
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-wrap: wrap;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-container:hover {
+            transform: scale(1.02);
+        }
+
+        .profile-sidebar {
+            background-color: #1e467f;
+            color: #fff;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            border: 5px solid #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-sidebar h2, .profile-sidebar p {
+            margin: 10px 0;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #1e467f, #72b5e2);
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 25px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn:hover {
+            background: linear-gradient(45deg, #72b5e2, #1e467f);
+            transform: translateY(-3px);
+        }
+
+        .profile-details {
+            flex: 1;
+            padding: 30px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #1e467f;
+            display: inline-block;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .detail-row:hover {
+            background-color: #f9f9f9;
+        }
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .skill-tag {
+            background: linear-gradient(45deg, #1e467f, #72b5e2);
+            color: #fff;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            transition: transform 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .profile-container {
+                flex-direction: column;
+                margin: 0 auto;
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+        }
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+    
+        .modal-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+    
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+    
+        input[type="text"], input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    
+        button[type="submit"] {
+            background: linear-gradient(45deg, #1e467f, #72b5e2);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+        }
+    
+        button[type="submit"]:hover {
+            background: linear-gradient(45deg, #72b5e2, #1e467f);
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <img src="vit.png" alt="VIT Logo">
+            <h2>Faculty Portal</h2>
+        </div>
+        <ul class="sidebar-nav">
+            <li>
+                <a href="thome.html">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="course.html">
+                    <i class="fas fa-book"></i>
+                    <span>My Courses</span>
+                </a>
+            </li>
+            <li>
+                <a href="P.HTML">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                </a>
+            </li>
+            <li>
+                <a href="attendance.html">
+                    <i class="fas fa-clipboard-list"></i>
+                    <span>Attendance</span>
+                </a>
+            </li>
+            <li>
+            
+                <a href="n.html">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <span>Events</span>
+                </a>
+            </li>
+            <li>
+                <a href="research.html">
+                    <i class="fas fa-flask"></i>
+                    <span>Research Hub</span>
+                </a>
+            </li>
+            <li>
+                <a href="LOGIN PAGE.html">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="profile-container">
+            <div class="profile-sidebar">
+                <img src="user_profile.png" alt="Dr. Rajesh Kumar" class="profile-pic">
+                <h2>Dr. Rajesh Kumar</h2>
+                <p>Associate Professor</p>
+                <a href="#" class="btn">Edit Profile</a>
+            </div>
+            <div class="profile-details">
+                <h3 class="section-title">Personal Information</h3>
+                <div class="detail-row">
+                    <span>Full Name:</span>
+                    <span>Dr. Rajesh Kumar Singh</span>
+                </div>
+                <div class="detail-row">
+                    <span>Email:</span>
+                    <span>rajesh.kumar@vit.edu.in</span>
+                </div>
+                <div class="detail-row">
+                    <span>Department:</span>
+                    <span>Computer Science and Engineering</span>
+                </div>
+                <div class="detail-row">
+                    <span>Phone:</span>
+                    <span>+91 9876543210</span>
+                </div>
+
+                <h3 class="section-title">Professional Details</h3>
+                <div class="detail-row">
+                    <span>Designation:</span>
+                    <span>Associate Professor</span>
+                </div>
+                <div class="detail-row">
+                    <span>Specialization:</span>
+                    <span>Machine Learning, Artificial Intelligence</span>
+                </div>
+                <div class="detail-row">
+                    <span>Experience:</span>
+                    <span>12 Years</span>
+                </div>
+
+                <h3 class="section-title">Research Interests</h3>
+                <div class="skills-container">
+                    <span class="skill-tag">Machine Learning</span>
+                    <span class="skill-tag">Deep Learning</span>
+                    <span class="skill-tag">Artificial Intelligence</span>
+                    <span class="skill-tag">Computer Vision</span>
+                    <span class="skill-tag">Natural Language Processing</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Edit Profile Modal -->
+<div id="editProfileModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h2>Edit Profile</h2>
+        <form id="editProfileForm">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" value="Dr. Rajesh Kumar Singh">
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="rajesh.kumar@vit.edu.in">
+
+            <label for="phone">Phone:</label>
+            <input type="text" id="phone" name="phone" value="+91 9876543210">
+
+            <button type="submit" class="btn">Save Changes</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Edit Profile Button Click
+        const editProfileBtn = document.querySelector('.btn');
+        editProfileBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            // Display a pop-up message for now
+            showPopup('Edit Profile feature will be available soon!', 'info');
+        });
+    
+        // Hover Animation for Profile Details
+        const detailRows = document.querySelectorAll('.detail-row');
+        detailRows.forEach(row => {
+            row.addEventListener('mouseover', () => {
+                row.style.transform = 'scale(1.02)';
+                row.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+            });
+            row.addEventListener('mouseout', () => {
+                row.style.transform = 'scale(1)';
+                row.style.boxShadow = 'none';
+            });
+        });
+    
+        // Dynamic Tooltip Function
+        function showPopup(message, type) {
+            const popup = document.createElement('div');
+            popup.className = `popup-message ${type}`;
+            popup.textContent = message;
+            document.body.appendChild(popup);
+    
+            setTimeout(() => {
+                popup.style.opacity = '0';
+                setTimeout(() => popup.remove(), 500);
+            }, 2000);
+        }
+    
+        // Create Popup Styles
+        const style = document.createElement('style');
+        style.textContent = `
+            .popup-message {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: #1e467f;
+                color: #fff;
+                padding: 10px 20px;
+                border-radius: 5px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+                opacity: 1;
+                transition: opacity 0.5s ease;
+                z-index: 1000;
+            }
+            .popup-message.info {
+                background: #007bff;
+            }
+        `;
+        document.head.appendChild(style);
+    
+        // Add Responsive Interaction (Optional)
+        const mainContent = document.querySelector('.main-content');
+        const mediaQuery = window.matchMedia('(max-width: 768px)');
+        function handleTabletChange(e) {
+            if (e.matches) {
+                mainContent.style.padding = '10px';
+            } else {
+                mainContent.style.padding = '20px';
+            }
+        }
+        mediaQuery.addEventListener('change', handleTabletChange);
+        handleTabletChange(mediaQuery);
+    });
+    document.addEventListener('DOMContentLoaded', () => {
+        const editProfileBtn = document.querySelector('.btn'); // Edit Profile button
+        const modal = document.getElementById('editProfileModal'); // Modal
+        const closeBtn = document.querySelector('.close-btn'); // Close button
+        const form = document.getElementById('editProfileForm'); // Form
+    
+        // Show the modal when Edit Profile is clicked
+        editProfileBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            modal.style.display = 'flex';
+        });
+    
+        // Close the modal
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+    
+        // Close modal if user clicks outside of modal content
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    
+        // Handle form submission
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+    
+            // Update profile details (you can later send these to a server)
+            alert(`Profile updated:\nName: ${name}\nEmail: ${email}\nPhone: ${phone}`);
+    
+            // Close the modal after saving
+            modal.style.display = 'none';
+        });
+    });
+        
+</script>
+</body>
+</html>

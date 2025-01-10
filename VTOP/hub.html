@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Submission Platform</title>
+    <style>
+        /* General reset */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Navigation bar styling */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(to right, #091c5a, #336be4);
+            padding: 20px 20px;
+            color: white;
+        }
+
+        .navbar .heading {
+            flex: 0 0 10%;
+            font-size:30px;
+            font-weight: bold;
+        }
+
+        .navbar .menu {
+            flex: 1;
+            display: flex;
+            justify-content: flex-start;
+            gap: 20px;
+            padding-left:5%;
+        }
+
+        .navbar .menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 5px 10px;
+            transition: background-color 0.3s;
+        }
+
+        .navbar .menu a:hover {
+            background-color: #575757;
+            border-radius: 5px;
+        }
+
+        /* Search bar styling */
+        .navbar .search-bar {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .search-bar input {
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 60%;
+        }
+
+        .navbar .profile-menu {
+            flex: 0 0 30%;
+            text-align: right;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .navbar .profile-menu img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .feed {
+            padding: 20px;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .feed .sidebar {
+            flex: 0 0 30%; /* Reduced width of the project list */
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .feed .post-container {
+            flex: 0 0 65%; /* Adjust the width of the posting option block */
+        }
+
+        .post {
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .post .header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .post .header img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .post .content {
+            margin-top: 10px;
+        }
+
+        .tags {
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .tags span {
+            background-color: #516570a3;
+            color: white;
+            padding: 5px 10px;
+            margin-right: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .tags span:hover {
+            background-color: #626870a3;
+        }
+
+        .new-post {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .new-post textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 5px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .new-post input {
+            width: 100%;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 5px;
+            margin-top: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .new-post button {
+            margin-top:10px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .new-post button:hover {
+            background-color: #0056b3;
+        }
+
+        .sample-research {
+            margin-bottom: 20px;
+        }
+
+        .sample-research .research-item {
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        .sample-research .research-item:hover {
+            background-color: #f0f0f0;
+        }
+
+        .sample-research .research-item a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .sample-research .research-item h4 {
+            margin: 0;
+        }
+
+        .sample-research .research-item p {
+            margin-top: 10px;
+            color: #555;
+        }
+
+        .sample-research .tags {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .sample-research .tags span {
+            background-color: #516570a3;
+            color: white;
+            padding: 5px 10px;
+            margin-right: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation bar -->
+    <div class="navbar">
+        <div class="heading">Research</div>
+        <div class="menu">
+            <li><a href="thome.html">Home</a></li>
+            <li><a href="hub.html">Research</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="LOGIN PAGE.html">Logout</a></li>
+        </div>
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <input type="text" id="search-bar" placeholder="Search by tags...">
+        </div>
+        <div class="profile-menu">
+            <span>Welcome!, Dr. Vijay Kumar Trivedi</span>
+            <img src="user_profile.png" alt="Profile Picture">
+        </div>
+    </div>
+
+    <!-- Research Feed Section -->
+    <div class="feed">
+        <!-- Post Container (Now first) -->
+        <div class="post-container">
+            <div class="new-post">
+                <h3>Share your Research</h3>
+                <!-- Link input field added above tags -->
+                <input type="text" id="project-link" placeholder="Enter research link" />
+                <textarea id="post-content" placeholder="Write about your research..."></textarea>
+                <input type="text" id="tags-input" placeholder="Enter tags (comma separated)" />
+                <button id="post-btn">Post</button>
+            </div>
+        </div>
+
+        <!-- Sidebar with sample research articles (Now second) -->
+        <div class="sidebar">
+            <h3>Research List</h3>
+            <div class="sample-research" id="project-list">
+                <div class="research-item" data-tags="Quantum Computing, AI" data-link="https://example.com/quantum-computing">
+                    <a href="https://github.com/BlackINT3/RedKits" target="_blank">
+                        <h4>BlackINT3/RedKits</h4>
+                        <p>Cyber Security Reseraching and RedTeam Kits Code</p>
+                        <div class="tags">
+                            <span>cyber-security</span>
+                            <span>AI</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="research-item" data-tags="AI, Ethics" data-link="https://example.com/ai-ethics">
+                    <a href="https://github.com/dhairyagothi/ML-Fusion-Lab-Website" target="_blank">
+                        <h4>Threshold/PersonReIdentification</h4>
+                        <p>Research for person re-identification</p>
+                        <div class="tags">
+                            <span>ID</span>
+                            <span>Scratch</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="research-item" data-tags="Data Science, Social Good" data-link="https://example.com/data-science">
+                    <a href="https://github.com/dhairyagothi/FUN-HTML-CSS-WEBSITE-" target="_blank">
+                        <h4>eddieir/medical_analysis_machine_learning </h4>
+                        <p>This research is dedicated to the medical research for skin and breast cancer and brain tumor detection detection by using NN and SVM and vgg19</p>
+                        <div class="tags">
+                            <span>Data Science</span>
+                            <span>Social Good</span>
+                            <span>Health Care</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const postBtn = document.getElementById('post-btn');
+        const postContent = document.getElementById('post-content');
+        const tagsInput = document.getElementById('tags-input');
+        const projectLink = document.getElementById('project-link');
+        const projectList = document.getElementById('project-list');
+
+        // Posting functionality
+        postBtn.addEventListener('click', () => {
+            const content = postContent.value.trim();
+            const tags = tagsInput.value.trim().split(',').map(tag => tag.trim()).filter(tag => tag.length > 0);
+            const link = projectLink.value.trim();
+
+            if (!content) {
+                alert('Please write some content to post.');
+                return;
+            }
+
+            if (tags.length === 0) {
+                alert('Please add some tags.');
+                return;
+            }
+
+            const projectItem = document.createElement('div');
+            projectItem.classList.add('research-item');
+
+            projectItem.innerHTML = `
+                <a href="${link}" target="_blank">
+                    <h4>${content}</h4>
+                    <p>${content}</p>
+                    <div class="tags">
+                        ${tags.map(tag => `<span>${tag}</span>`).join('')}
+                    </div>
+                </a>
+            `;
+
+            projectList.prepend(projectItem);
+            postContent.value = '';
+            tagsInput.value = '';
+            projectLink.value = '';
+        });
+
+        // Logout functionality
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            alert('Logged out successfully!');
+        });
+    </script>
+
+</body>
+</html>

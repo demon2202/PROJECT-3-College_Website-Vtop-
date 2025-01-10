@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/1fc270g584.js" crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <a href="homepage.html" class="logo">
+                <img src="vit.png" alt="VIT Bhopal Logo" class="logo-img">
+            </a>
+            <ul>
+                <li><a href="home.html"><i class="fas fa-home"></i><span>Home</span></a></li>
+                <li><a href="profile.html"><i class="fas fa-user"></i><span>Profile</span></a></li>
+                <li>
+                    <a href="events.html">
+                        <i class="fa-solid fa-music"></i>
+                        <span>Events</span>
+                    </a>
+                </li>               
+                 <li><a href="faculty-html.html"><i class="fas fa-chalkboard-teacher"></i><span>Professors</span></a></li>
+                <li><a href="grades.html"><i class="fas fa-building"></i><span>Grades</span></a></li>
+                <li>
+                    <a href="leave.html">
+                        <i class="fa-solid fa-hotel"></i>
+                        <span>Leave Request</span>
+                    </a>
+                </li>
+                <li><a href="LOGIN PAGE.html"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
+            </ul>
+        </nav>
+
+        <!-- Profile Header -->
+        <div class="profile-header">
+            <div class="profile-banner">
+                <img src="vitbanner.png" alt="Banner Image">
+            </div>
+            <div class="profile-info">
+                <div class="profile-pic">
+                    <img src="user_profile.png" alt="Profile Picture">
+                </div>
+                <div class="profile-details">
+                    <h1>Harshit Singh Negi</h1>
+                    <p>Attending VIT Bhopal</p>
+                    <p>Dehradun, Uttarakhand, India</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Actions (Tabs for Info) -->
+        <div class="profile-actions">
+            <button class="tab-button active" onclick="showSection('personal-info')">Personal Information</button>
+            <button class="tab-button" onclick="showSection('educational-info')">Educational Information</button>
+            <button class="tab-button" onclick="showSection('hostel-info')">Hostel Details</button>
+            <button class="tab-button" onclick="showSection('proctor-info')">Proctor Details</button>
+        </div>
+
+        <!-- Information Sections -->
+        <div class="section active" id="personal-info">
+            <div class="section-content">
+                <h2>Personal Information</h2>
+                <p><strong>Application Number:</strong> 20209754321</p>
+                <p><strong>Student Name:</strong> HARSHIT SINGH NEGI</p>
+                <p><strong>Date Of Birth:</strong> 02-June-20**</p>
+                <p><strong>Gender:</strong> MALE</p>
+                <p><strong>Native Language:</strong> HINDI</p>
+                <p><strong>Native State:</strong> UTTARAKHAND</p>
+                <p><strong>Blood Group:</strong> O+</p>
+                <p><strong>Community:</strong> GENERAL</p>
+            </div>
+        </div>
+
+        <div class="section" id="educational-info">
+            <div class="section-content">
+                <h2>Educational Information</h2>
+                <p><strong>Applied Degree:</strong> UG</p>
+                <p><strong>Qualification:</strong> 12TH/INTERMEDIATE</p>
+                <p><strong>Branch Studied:</strong> PCM</p>
+            </div>
+        </div>
+
+        <div class="section" id="hostel-info">
+            <div class="section-content">
+                <h2>Hostel Details</h2>
+                <p><strong>Hostel Block:</strong> MENS HOSTEL BLOCK-I</p>
+                <p><strong>Room No:</strong> 200</p>
+                <p><strong>Bed Type:</strong> 3-BED</p>
+            </div>
+        </div>
+
+        <div class="section" id="proctor-info">
+            <div class="section-content">
+                <h2>Proctor Details</h2>
+                <p><strong>Faculty Name:</strong> VINOD BHATT</p>
+                <p><strong>Faculty Department:</strong> SASL-Department</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://kit.fontawesome.com/1fc270f284.js"></script>
+    <script>
+        function showSection(sectionId) {
+            var sections = document.querySelectorAll('.section');
+            var buttons = document.querySelectorAll('.tab-button');
+
+            sections.forEach(function(section) {
+                section.classList.remove('active');
+            });
+
+            buttons.forEach(function(button) {
+                button.classList.remove('active');
+            });
+
+            document.getElementById(sectionId).classList.add('active');
+            document.querySelector(`.tab-button[onclick="showSection('${sectionId}')"]`).classList.add('active');
+        }
+
+        // Show default section
+        showSection('personal-info');
+    </script>
+</body>
+</html>
