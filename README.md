@@ -1,4 +1,4 @@
-# PROJECT-3 College_Website [VTOP]
+![image](https://github.com/user-attachments/assets/29f6bc07-e681-4c8b-8968-707b35a7af84)# PROJECT-3 College_Website [VTOP]
 
 This project is a feature-rich and visually appealing clone of the Vellore Institute of Technology, Bhopal's official website. The website offers an interactive platform designed to enhance the user experience for students, faculty, and staff.
 
@@ -37,11 +37,20 @@ The project primarily utilizes the following technologies:
 ---
 
 ## Preview
-![image](https://github.com/user-attachments/assets/b26530a6-8f71-48d7-b858-74a4fb6417ae)
-![image](https://github.com/user-attachments/assets/218b5002-ecbc-4a31-a033-029fbbd1530f)
-![image](https://github.com/user-attachments/assets/3d7e29d4-6ff9-4ff3-b215-6d4c7fcda978)
+##Homepage
+![image](https://github.com/user-attachments/assets/1b96dd9f-56c0-4fd1-8511-8642064ec054)
 
-![Uploading image.png…]()
+![image](https://github.com/user-attachments/assets/109e7914-491b-4f43-843b-807de3d2f478)
+![image](https://github.com/user-attachments/assets/bfbbbfec-7c61-4387-b7b3-9f8e2f53dac3)
+![image](https://github.com/user-attachments/assets/a1d155c0-e5e0-47bb-ba8a-356b7aedd51e)
+
+##Teacher HomePage
+![image](https://github.com/user-attachments/assets/8875dd4f-62fa-4715-a2b3-b8b200283c9a)
+
+
+
+
+
 
 
 
