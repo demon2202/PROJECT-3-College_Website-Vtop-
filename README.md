@@ -37,8 +37,13 @@ The project primarily utilizes the following technologies:
 ---
 
 ## Preview
+![image](https://github.com/user-attachments/assets/b26530a6-8f71-48d7-b858-74a4fb6417ae)
+![image](https://github.com/user-attachments/assets/218b5002-ecbc-4a31-a033-029fbbd1530f)
+![image](https://github.com/user-attachments/assets/3d7e29d4-6ff9-4ff3-b215-6d4c7fcda978)
 
-*Include screenshots or a live demo link here.*
+![Uploading image.png…]()
+
+
 
 ---
 
